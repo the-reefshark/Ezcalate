@@ -15,13 +15,10 @@ class TodoList extends React.Component {
         this.setState(prevState => {
             const updatedTodos = prevState.todos.map(todo => {
                 if (todo.id === id) {
-                    console.log("I'm in")
-                    //todo.completed = !todo.completed
-                    todo.completed = true
+                    todo.completed = !todo.completed
                 }
                 return todo
             })
-            console.log(updatedTodos)
             return {
                 todos: updatedTodos
             }
@@ -32,7 +29,6 @@ class TodoList extends React.Component {
         // Restructure incoming data array
         const todoItems = this.state.todos.map(item => <TodoItem key={item.id} item={item}
             handleChange={this.handleChange} />)
-
         return (
             <div>
                 {todoItems}
