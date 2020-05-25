@@ -2,8 +2,6 @@ import React from "react"
 import Login from "./Login"
 import Tabs from "./Tabs" 
 
-
-
 class Overall extends React.Component {
     
     render() {

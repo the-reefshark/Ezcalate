@@ -1,9 +1,11 @@
 import React from "react"
 
+import Overall from "./Login/Overall"
+
 function Header() {
     return (
         <div>
-            <h1> Ezcalate </h1>
+            <Overall />
             <hr />
         </div>
     )
