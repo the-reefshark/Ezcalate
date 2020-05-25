@@ -10,19 +10,15 @@ class TodoList extends React.Component {
             todos: todosData
         }
     }
-    
+
     handleChange = id => {
-        this.setState(prevState => {
-            const updatedTodos = prevState.todos.map(todo => {
-                if (todo.id === id) {
-                    todo.completed = !todo.completed
-                }
-                return todo
-            })
-            return {
-                todos: updatedTodos
-            }
+        const updatedTodos = this.state.todos.map(todo => {
+          if (todo.id === id) {
+            todo.completed = !todo.completed;
+          }
+          return todo;
         })
+        this.setState({ todos: updatedTodos });
     }
 
     render() {
