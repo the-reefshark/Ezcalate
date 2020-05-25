@@ -21,10 +21,15 @@ class TodoList extends React.Component {
         this.setState({ todos: updatedTodos });
     }
 
+    handleClick = id => {
+        const updatedTodos = this.state.todos.filter(todo => todo.id !== id)
+        this.setState({ todos: updatedTodos })
+    }
+
     render() {
         // Restructure incoming data array
         const todoItems = this.state.todos.map(item => <TodoItem key={item.id} item={item}
-            handleChange={this.handleChange} />)
+            handleChange={this.handleChange} handleClick={this.handleClick} />)
         return (
             <div className="todo-list">
                 {todoItems}

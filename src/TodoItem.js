@@ -16,6 +16,7 @@ class TodoItem extends React.Component {
                     onChange={() => this.props.handleChange(this.props.item.id)}
                 />
                 <p style={this.props.item.completed ? completedStyle: null}>{this.props.item.text}</p>
+                <button onClick={() => this.props.handleClick(this.props.item.id)}> X </button>
             </div>
         )
     }
