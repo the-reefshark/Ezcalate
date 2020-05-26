@@ -1,0 +1,29 @@
+
+
+.login {
+    display:inline-block;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    padding: 1em 1em;
+    margin: 0.3em 0.3em 0;
+    border-radius:2em;
+    border-style: hidden;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:600;
+    color:#FFFFFF;
+    background-color:#2ea8ee;
+    text-align:center;
+    transition: all 0.2s;
+  }
+
+
+.login:hover{
+    background-color:#4095c6;
+    }
+
+  /* .login {
+      background-color: rgb(124, 89, 43);
+  } */
