@@ -1,19 +1,57 @@
-import React from 'react';
 
-import Header from "./Header"
-import TodoList from "./TodoList"
+
+import ToDoListAll from "./ToDoList/ToDoListAll"
 import Footer from "./Footer"
-import Login from "./Login/Login"
-import Overall from "./Login/Overall"
+import "./App.css"
+import React from 'react'; // <-- updated
+import Header from './components/Header';
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
+import { useAuth0 } from './context/auth0-context'; // <-- new
 
-class App extends React.Component { 
-  render() {
-    return (
-        <div>
-            <Overall/>
+
+function App() {
+  const { isLoading, user, loginWithRedirect, logout } = useAuth0();
+
+  return (
+    <>
+    {/* <Header/> */}
+      <div className="hero is-info is-fullheight">
+        <div className="hero-body">
+          <div className="container has-text-centered">
+            {!isLoading && !user && (
+              <>
+                <h1>Click Below!</h1>
+                <button onClick={loginWithRedirect} className="login">
+                  Login
+              </button>
+              </>
+            )}
+            {!isLoading && user && (
+              <>
+                <h1>You are logged in!</h1>
+                <p>Hello {user.name}</p>
+
+                {user.picture && <img src={user.picture} alt="My Avatar" />}
+                <hr />
+
+                
+                <ToDoListAll/>
+
+
+                <button
+                  onClick={() => logout({ returnTo: window.location.origin })}
+                  className="button is-small is-dark"
+                >
+                  Logout
+                </button>
+              </>
+            )}
+          </div>
         </div>
-    )
-  }
+      </div>
+    </>
+  );
 }
+
 
 export default App;
