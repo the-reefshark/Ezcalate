@@ -3,10 +3,10 @@
 import ToDoListAll from "./ToDoList/ToDoListAll"
 import Footer from "./Footer"
 import "./App.css"
-import React from 'react'; // <-- updated
+import React from 'react';
 import Header from './components/Header';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
-import { useAuth0 } from './context/auth0-context'; // <-- new
+import { useAuth0 } from './context/auth0-context';
 
 
 function App() {
