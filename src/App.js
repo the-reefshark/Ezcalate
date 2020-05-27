@@ -1,6 +1,6 @@
 
 
-import ToDoListAll from "./ToDoList/ToDoListAll"
+import ToDoList from "./ToDoList/TodoList"
 import Footer from "./Footer"
 import "./App.css"
 import React from 'react';
@@ -13,44 +13,45 @@ function App() {
   const { isLoading, user, loginWithRedirect, logout } = useAuth0();
 
   return (
-    <>
-    {/* <Header/> */}
-      <div className="hero is-info is-fullheight">
-        <div className="hero-body">
-          <div className="container has-text-centered">
-            {!isLoading && !user && (
-              <>
-                <h1>Click Below!</h1>
-                <button onClick={loginWithRedirect} className="login">
-                  Login
-              </button>
-              </>
-            )}
-            {!isLoading && user && (
-              <>
-                <h1>You are logged in!</h1>
-                <p>Hello {user.name}</p>
+    // <>
+    // {/* <Header/> */}
+    //   <div className="hero is-info is-fullheight">
+    //     <div className="hero-body">
+    //       <div className="container has-text-centered">
+    //         {!isLoading && !user && (
+    //           <>
+    //             <h1>Click Below!</h1>
+    //             <button onClick={loginWithRedirect} className="login">
+    //               Login
+    //           </button>
+    //           </>
+    //         )}
+    //         {!isLoading && user && (
+    //           <>
+    //             <h1>You are logged in!</h1>
+    //             <p>Hello {user.name}</p>
 
-                {user.picture && <img src={user.picture} alt="My Avatar" />}
-                <hr />
+    //             {user.picture && <img src={user.picture} alt="My Avatar" />}
+    //             <hr />
 
                 
-                <ToDoListAll/>
+    //             <ToDoList />
 
 
-                <button
-                  onClick={() => logout({ returnTo: window.location.origin })}
-                  className="button is-small is-dark"
-                >
-                  Logout
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </>
-  );
+    //             <button
+    //               onClick={() => logout({ returnTo: window.location.origin })}
+    //               className="button is-small is-dark"
+    //             >
+    //               Logout
+    //             </button>
+    //           </>
+    //         )}
+    //       </div>
+    //     </div>
+    //   </div>
+    // </>
+    <ToDoList />
+  )
 }
 
 

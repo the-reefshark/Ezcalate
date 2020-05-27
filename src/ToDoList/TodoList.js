@@ -7,44 +7,110 @@ class TodoList extends React.Component {
     constructor() {
         super()
         this.state = {
-            todos: todosData,
+            todos: null,
             add: ""
         }
+    }
+
+    componentDidMount() {
+        this.getTodoList();
+    }
+
+    setTodoList = data => {
+        this.setState({
+            todos: data,
+            add: ""
+        })
+    }
+
+    getTodoList = () => {
+        fetch('http://localhost:3001')
+            .then(response => { return response.json })
+            .then(data => console.log(data)) // TEST CODE
+            //.then(data => { setTodoList(data) })
     }
 
     handleAdd = event => {
         event.preventDefault();
         const newTodo = {
-            id: this.state.todos.length + 1,
+            id: this.state.todos === null ? 0 : this.state.todos.length + 1,
             text: this.state.add,
             completed: false
         }
-        const updatedTodos = [...this.state.todos, newTodo]
+        const updatedTodos = this.state.todos === null ? [newTodo] : [...this.state.todos, newTodo]
         this.setState({ todos: updatedTodos, add: "" })
+
+        const id = this.state.todos === null ? 0 : this.state.todos.length + 1
+        const text = this.state.add
+        const completed = false
+
+        fetch('http://localhost:3001/tododata', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, text, completed }),
+        })
+        .then(response => { return response.json })
+        .then(data => {
+            console.log(data) // TEST CODE
+            this.getTodoList()
+        })
     }
 
     handleAddBox = event => {
-        this.setState({add: event.target.value})
+        this.setState({ add: event.target.value })
     }
 
     handleChange = id => {
+        let text
+        let completed
         const updatedTodos = this.state.todos.map(todo => {
           if (todo.id === id) {
             todo.completed = !todo.completed
+            text = todo.text
+            completed = todo.completed
           }
           return todo
         })
         this.setState({ todos: updatedTodos })
+
+        //Delete old entry
+        fetch(`http://localhost:3001/tododata/${id}`, {
+            method: 'DELETE' })
+        .then(response => { return response.json })
+        .then(data => {
+            console.log(data) // TEST CODE
+            this.getTodoList()
+        })
+
+        //Add new entry
+        fetch('http://localhost:3001/tododata', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, text, completed }),
+        })
+        .then(response => { return response.json })
+        .then(data => {
+            console.log(data) // TEST CODE
+            this.getTodoList()
+        })
     }
 
     handleClick = id => {
         const updatedTodos = this.state.todos.filter(todo => todo.id !== id)
         this.setState({ todos: updatedTodos })
+
+        fetch(`http://localhost:3001/tododata/${id}`, {
+            method: 'DELETE' })
+        .then(response => { return response.json })
+        .then(data => {
+            console.log(data) // TEST CODE
+            this.getTodoList()
+        })
     }
 
     render() {
         // Restructure incoming data array
-        const todoItems = this.state.todos.map(item => <TodoItem key={item.id} item={item}
+        const todoItems = this.state.todos === null ? null : this.state.todos.map(item => <TodoItem key={item.id} item={item}
             handleChange={this.handleChange} handleClick={this.handleClick} />)
         return (
             <div className="todo-list">
@@ -58,7 +124,7 @@ class TodoList extends React.Component {
                     <button> Add </button>
                     <br />
                 </form>
-                {todoItems}
+                {todoItems ? todoItems : 'Add items using the add box above!'}
             </div>
         )
     }

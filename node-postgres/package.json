@@ -1,0 +1,7 @@
+{
+    "name": "node-postgres",
+    "version": "1.0.0",
+    "description": "Use NodeJS and Express to update TodoList on PostgreSQL",
+    "main": "index.js",
+    "license": "ISC"
+  }
