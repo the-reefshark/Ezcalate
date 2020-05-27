@@ -25,9 +25,9 @@ class TodoList extends React.Component {
 
     getTodoList = () => {
         fetch('http://localhost:3001')
-            .then(response => { return response.json })
+            .then(response => { return response.text() })
             .then(data => console.log(data)) // TEST CODE
-            //.then(data => { setTodoList(data) })
+            //.then(data => { this.setTodoList(data) })
     }
 
     handleAdd = event => {

@@ -13,7 +13,7 @@ const getTodolist = () => {
       if (error) {
         reject(error)
       }
-      resolve(results.rows);
+      resolve(results);
     })
   })
 }
