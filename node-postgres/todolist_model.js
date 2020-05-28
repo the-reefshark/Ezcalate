@@ -1,11 +1,18 @@
 const Pool = require('pg').Pool
+
 const pool = new Pool({
   user: 'my_user',
   host: 'localhost',
   database: 'my_database',
-  password: 'Sector37.',
+  password: 'root',
   port: 5432,
+  
+  //change this to your info hehe
+ 
 });
+
+
+pool.connect(); //idk whether this is needed(?) cuz idk when code started working lmao
 
 const getTodolist = () => {
   return new Promise(function(resolve, reject) {
@@ -25,14 +32,18 @@ const createTodoItem = (body) => {
         if (error) {
           reject(error)
         }
-        resolve(`A new item has been added added: ${results.rows[0]}`)
+        
+        resolve(`A new item has been added added:  `)
+        //${results.row[0]} <- this code here caused node index.js to keep breaking so i commented it out
+
       })
   })
 }
 const deleteTodoItem = () => {
   return new Promise(function(resolve, reject) {
     const id = parseInt(request.params.id)
-    pool.query('DELETE FROM tododata WHERE id = $1', [id], (error, results) => {
+    
+    pool.query('DELETE FROM tododata WHERE id = $1', id, (error, results) => { //THIS IS THE MAIN ISSUE
       if (error) {
         reject(error)
       }

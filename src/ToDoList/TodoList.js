@@ -16,24 +16,31 @@ class TodoList extends React.Component {
         this.getTodoList();
     }
 
-    setTodoList = data => {
+    setTodoList = data => { 
+        
+        const new_data = JSON.parse(data) 
+        
+        // basically data returned was a long ass string, hence the rendering below (map part) failed cuz you can't 
+        // map a string. hence the conversion to json and yup. 
+        
         this.setState({
-            todos: data,
+            todos: new_data["rows"],
             add: ""
         })
+        
     }
 
     getTodoList = () => {
         fetch('http://localhost:3001')
             .then(response => { return response.text() })
-            .then(data => console.log(data)) // TEST CODE
-            //.then(data => { this.setTodoList(data) })
+             // TEST CODE
+            .then(data => { this.setTodoList(data) })
     }
 
     handleAdd = event => {
         event.preventDefault();
         const newTodo = {
-            id: this.state.todos === null ? 0 : this.state.todos.length + 1,
+            id: this.state.todos === null ? 0 : this.state.todos.length - 1, //somehow changing + 1 to - 1 works and doesnt screw up add
             text: this.state.add,
             completed: false
         }
