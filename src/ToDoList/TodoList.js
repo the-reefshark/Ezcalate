@@ -16,24 +16,17 @@ class TodoList extends React.Component {
         this.getTodoList();
     }
 
-    setTodoList = data => { 
-        
+    setTodoList = data => {       
         const new_data = JSON.parse(data) 
-        
-        // basically data returned was a long ass string, hence the rendering below (map part) failed cuz you can't 
-        // map a string. hence the conversion to json and yup. 
-        
         this.setState({
             todos: new_data["rows"],
             add: ""
         })
-        
     }
 
     getTodoList = () => {
         fetch('http://localhost:3001')
             .then(response => { return response.text() })
-             // TEST CODE
             .then(data => { this.setTodoList(data) })
     }
 
@@ -58,7 +51,6 @@ class TodoList extends React.Component {
         })
         .then(response => { return response.json })
         .then(data => {
-            console.log(data) // TEST CODE
             this.getTodoList()
         })
     }
@@ -85,7 +77,6 @@ class TodoList extends React.Component {
             method: 'DELETE' })
         .then(response => { return response.json })
         .then(data => {
-            console.log(data) // TEST CODE
             this.getTodoList()
         })
 
@@ -96,8 +87,7 @@ class TodoList extends React.Component {
             body: JSON.stringify({ id, text, completed }),
         })
         .then(response => { return response.json })
-        .then(data => {
-            console.log(data) // TEST CODE
+        .then(() => {
             this.getTodoList()
         })
     }
@@ -109,8 +99,7 @@ class TodoList extends React.Component {
         fetch(`http://localhost:3001/tododata/${id}`, {
             method: 'DELETE' })
         .then(response => { return response.json })
-        .then(data => {
-            console.log(data) // TEST CODE
+        .then(() => {
             this.getTodoList()
         })
     }
