@@ -109,6 +109,11 @@ class TodoList extends React.Component {
         const todoItems = this.state.todos === null ? null : this.state.todos.map(item => <TodoItem key={item.id} item={item}
             handleChange={this.handleChange} handleClick={this.handleClick} />)
         return (
+
+
+
+
+            
             <div className="todo-list">
                 <form onSubmit={this.handleAdd}>
                     <input
@@ -120,7 +125,7 @@ class TodoList extends React.Component {
                     <button> Add </button>
                     <br />
                 </form>
-                {todoItems ? todoItems : 'Add items using the add box above!'}
+                {todoItems ? (todoItems.length === 0 ? 'Add something using the box above!' : todoItems) : 'Cannot connect to server!'}
             </div>
         )
     }
