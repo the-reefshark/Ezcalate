@@ -40,7 +40,7 @@ class TodoList extends React.Component {
     handleAdd = event => {
         event.preventDefault();
         const newTodo = {
-            id: this.state.todos === null ? 0 : this.state.todos.length - 1,
+            id: this.state.todos === null ? 0 : this.state.todos.length - 1, //somehow changing + 1 to - 1 works and doesnt screw up add
             text: this.state.add,
             completed: false
         }
