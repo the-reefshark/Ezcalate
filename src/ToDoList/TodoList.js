@@ -1,7 +1,8 @@
 import React from "react"
-
 import TodoItem from "./TodoItem"
 import todosData from "./todosData"
+import ToDoFormModal from "./TodoFormModal"
+
 
 class TodoList extends React.Component {
     constructor() {
@@ -18,11 +19,21 @@ class TodoList extends React.Component {
 
     setTodoList = data => {       
         const new_data = JSON.parse(data) 
-        this.setState({
-            todos: new_data["rows"],
-            add: ""
-        })
-    }
+        console.log(new_data["rows"])
+        if (new_data["rows"] === undefined) {
+            this.setState({
+                todos: null,
+                add: ""
+            })
+        }
+        else {
+            this.setState({
+                todos: new_data["rows"],
+                add: ""
+            })
+            }
+     }
+    
 
     getTodoList = () => {
         fetch('http://localhost:3001')
@@ -104,18 +115,28 @@ class TodoList extends React.Component {
         })
     }
 
+
+    onSubmit = data => {
+        console.log(data)
+        this.state.add = data["TaskName"]
+        
+    }
+
+
     render() {
         // Restructure incoming data array
         const todoItems = this.state.todos === null ? null : this.state.todos.map(item => <TodoItem key={item.id} item={item}
             handleChange={this.handleChange} handleClick={this.handleClick} />)
         return (
 
-
+            <>
+            
 
 
             
             <div className="todo-list">
-                <form onSubmit={this.handleAdd}>
+            <ToDoFormModal onSubmit = {this.onSubmit} />
+                {/* <form onSubmit={this.handleAdd}>
                     <input
                         type="text"
                         name="newTodo"
@@ -124,9 +145,10 @@ class TodoList extends React.Component {
                     />
                     <button> Add </button>
                     <br />
-                </form>
+                </form> */}
                 {todoItems ? (todoItems.length === 0 ? 'Add something using the box above!' : todoItems) : 'Cannot connect to server!'}
             </div>
+            </>
         )
     }
 }

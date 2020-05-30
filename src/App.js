@@ -7,6 +7,7 @@ import React from 'react';
 import Header from './components/Header';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import { useAuth0 } from './context/auth0-context';
+import TodoFormForm from "./ToDoList/TodoFormForm"
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
 
   return (
     <>
-    {/* <Header/> */}
+    
+    {/* /* <Header/>
       <div className="hero is-info is-fullheight">
         <div className="hero-body">
           <div className="container has-text-centered">
@@ -34,8 +36,7 @@ function App() {
                 {user.picture && <img src={user.picture} alt="My Avatar" />}
                 <hr />
 
-                
-                <ToDoList />
+               
 
 
                 <button
@@ -48,9 +49,12 @@ function App() {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
+    
+    
+    <ToDoList/> 
     </>
-    //<ToDoList />
+  
   )
 }
 
