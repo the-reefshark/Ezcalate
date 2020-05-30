@@ -19,7 +19,6 @@ class TodoList extends React.Component {
     setTodoList = data => {       
         const new_data = JSON.parse(data) 
         console.log(new_data["rows"])
-        const info = new_data["rows"]
         if (new_data["rows"] === undefined) {
             this.setState({
                 todos: null,
