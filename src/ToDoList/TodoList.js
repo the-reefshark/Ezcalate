@@ -18,11 +18,22 @@ class TodoList extends React.Component {
 
     setTodoList = data => {       
         const new_data = JSON.parse(data) 
-        this.setState({
-            todos: new_data["rows"],
-            add: ""
-        })
-    }
+        console.log(new_data["rows"])
+        const info = new_data["rows"]
+        if (new_data["rows"] === undefined) {
+            this.setState({
+                todos: null,
+                add: ""
+            })
+        }
+        else {
+            this.setState({
+                todos: new_data["rows"],
+                add: ""
+            })
+            }
+     }
+    
 
     getTodoList = () => {
         fetch('http://localhost:3001')
