@@ -22,7 +22,7 @@ function MyVerticallyCenteredModal(props) {
         </Modal.Header>
         <Modal.Body>
           <p>
-            <TodoFormForm onSubmit={props.onSubmit} />
+            <TodoFormForm onSubmit={props.onSubmit}/>
           </p>
         </Modal.Body>
         <Modal.Footer>

@@ -6,10 +6,14 @@ import ToDoFormModal from "./TodoFormModal"
 function TodoFormForm(props) {
   const { register, handleSubmit, errors } = useForm();
   
-  const toSubmit = data => {
-    props.onSubmit(data);
+  const toSubmit = (data, event) => 
+  {
+    console.log(event)
+    event.preventDefault();
+    console.log(data)
+    console.log(props.onSubmit(data));
   }
-  console.log(errors);
+  //console.log(errors);
 
   
   return (
@@ -18,7 +22,7 @@ function TodoFormForm(props) {
       <div class="form-group row"> 
         <label class="col-sm-2 col-form-label">Task Name</label>
           <div class="col-sm-7">
-            <input type="text" name="Task Name" class="form-control" placeholder="Enter Task here!" ref={register}/>
+            <input type="text" name="TaskName" class="form-control" placeholder="Enter Task here!" ref={register}/>
           </div>
     </div>
 
@@ -32,7 +36,7 @@ function TodoFormForm(props) {
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Type of Activity</label>
           <div class="col-sm-7">
-            <select name="type" class="form-control" ref={register}>
+            <select name="activitytype" class="form-control" ref={register}>
             <option value="" disabled selected>Select an activity </option>
             <option value="Work">Work</option>
             <option value=" School"> School</option>
@@ -46,7 +50,7 @@ function TodoFormForm(props) {
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">Due Date</label>
           <div class="col-sm-7">
-            <input type="datetime-local" placeholder="Due Date" name="Due Date" ref={register} />
+            <input type="datetime-local" placeholder="Due Date" name="DueDate" ref={register} />
           </div>
         </div>
       </div>

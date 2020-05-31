@@ -9,11 +9,16 @@ class TodoList extends React.Component {
         super()
         this.state = {
             todos: null,
-            add: ""
+            add: "",
+            details: "",
+            activitytype: "",
+            duedate: "",
+            dateCompleted: null
         }
     }
 
     componentDidMount() {
+        console.log(this.state.todos)
         this.getTodoList();
     }
 
@@ -31,6 +36,7 @@ class TodoList extends React.Component {
                 todos: new_data["rows"],
                 add: ""
             })
+            console.log(this.state.todos)
             }
      }
     
@@ -41,34 +47,63 @@ class TodoList extends React.Component {
             .then(data => { this.setTodoList(data) })
     }
 
-    handleAdd = event => {
-        event.preventDefault();
+    handleAdd = () => {
+       // event.preventDefault();
+       
         const newTodo = {
-            id: this.state.todos === null ? 0 : this.state.todos.length - 1, //somehow changing + 1 to - 1 works and doesnt screw up add
+            id: this.state.todos === null ? 0 : this.state.todos.length + 1, //somehow changing + 1 to - 1 works and doesnt screw up add
             text: this.state.add,
-            completed: false
+            details: this.state.details,
+            type: this.state.activitytype,
+            completed: false,
+            duedate: this.state.DueDate,
+            dateCompleted: null
         }
-        const updatedTodos = this.state.todos === null ? [newTodo] : [...this.state.todos, newTodo]
-        this.setState({ todos: updatedTodos, add: "" })
 
-        const id = this.state.todos === null ? 0 : this.state.todos.length + 1
-        const text = this.state.add
-        const completed = false
+        console.log(newTodo)
+
+        console.log(this.state.todos)
+
+        const updatedTodos = this.state.todos.length === 0 ? 
+        [newTodo] : [...this.state.todos, newTodo]
+
+        console.log(updatedTodos)
+
+        
+        this.setState({ 
+            todos: updatedTodos, 
+            add: "",  
+            details: "",
+            activitytype: "",
+            duedate: "",
+            dateCompleted: null })
+
+            const id = this.state.todos === null ? 0 : this.state.todos.length + 1
+            const text = newTodo.text
+            const details = newTodo.details
+            const type = newTodo.type
+            const completed = false
+            const duedate = null
+            const dateCompleted = null
+
+
 
         fetch('http://localhost:3001/tododata', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, text, completed }),
+            body: JSON.stringify({ id, text, details, completed, type, duedate })
         })
         .then(response => { return response.json })
         .then(data => {
             this.getTodoList()
         })
+    
+        
     }
 
-    handleAddBox = event => {
-        this.setState({ add: event.target.value })
-    }
+    // handleAddBox = event => {
+    //     this.setState({ add: event.target.value })
+    // }
 
     handleChange = id => {
         let text
@@ -76,7 +111,7 @@ class TodoList extends React.Component {
         const updatedTodos = this.state.todos.map(todo => {
           if (todo.id === id) {
             todo.completed = !todo.completed
-            text = todo.text
+            text = todo.task_name
             completed = todo.completed
           }
           return todo
@@ -87,9 +122,9 @@ class TodoList extends React.Component {
         fetch(`http://localhost:3001/tododata/${id}`, {
             method: 'DELETE' })
         .then(response => { return response.json })
-        .then(data => {
-            this.getTodoList()
-        })
+        // .then(data => {
+        //     this.getTodoList()
+        // })
 
         //Add new entry
         fetch('http://localhost:3001/tododata', {
@@ -118,8 +153,24 @@ class TodoList extends React.Component {
 
     onSubmit = data => {
         console.log(data)
-        this.state.add = data["TaskName"]
         
+        console.log(this.state.todos)
+        console.log(data instanceof Event)
+
+        if (data.constructor.name === 'SyntheticEvent') {
+        }
+
+        else{
+        this.setState(
+            {add: data["TaskName"],
+             details: data["Details"],
+             activitytype: data["activitytype"],
+             duedate: data["DueDate"],
+             dateCompleted: null
+            }, 
+            () => {this.handleAdd()})
+        console.log(this.state.todos)
+        }
     }
 
 
@@ -128,7 +179,7 @@ class TodoList extends React.Component {
         const todoItems = this.state.todos === null ? null : this.state.todos.map(item => <TodoItem key={item.id} item={item}
             handleChange={this.handleChange} handleClick={this.handleClick} />)
         return (
-
+            
             <>
             
 

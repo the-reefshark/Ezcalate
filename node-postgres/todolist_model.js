@@ -28,8 +28,10 @@ const getTodolist = () => {
 }
 const createTodoItem = (body) => {
   return new Promise(function(resolve, reject) {
-    const { id, text, completed } = body
-    pool.query('INSERT INTO tododata ( id, text, completed ) VALUES ($1, $2, $3) RETURNING *', [id, text, completed], 
+    console.log(body)
+    const { id, text, details, completed, type, duedate } = body
+    
+    pool.query('INSERT INTO tododata ( id, task_name, details, completed, activity_type, duedate ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [id, text, details, completed, type, duedate], 
       (error, results) => {
         if (error) {
           reject(error)
