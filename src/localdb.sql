@@ -1,8 +1,8 @@
-CREATE TABLE todoata (
+CREATE TABLE tododata (
     id INT,
     task_name VARCHAR,
+    details VARCHAR,
     completed BOOLEAN,
-    activity_type VARCHAR CHECK (activity_type IN ('Work', 'School', 'Health', 'Personal', 'Others' )),
-    username VARCHAR
-    
+    activity_type VARCHAR, 
+    duedate DATE
     )
