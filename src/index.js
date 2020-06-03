@@ -9,9 +9,6 @@ ReactDOM.render(
   <Auth0Provider>
     <App />
   </Auth0Provider>,
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>,
   document.getElementById('root')
 );
 
