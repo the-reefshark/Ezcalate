@@ -97,8 +97,7 @@ class TodoList extends React.Component {
         .then(data => {
             this.getTodoList()
         })
-    
-        
+
     }
 
     // handleAddBox = event => {

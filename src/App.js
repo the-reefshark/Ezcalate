@@ -16,7 +16,7 @@ function App() {
   return (
     <>
     
-    {/* /* <Header/>
+    /* <Header/>
       <div className="hero is-info is-fullheight">
         <div className="hero-body">
           <div className="container has-text-centered">
@@ -36,7 +36,7 @@ function App() {
                 {user.picture && <img src={user.picture} alt="My Avatar" />}
                 <hr />
 
-               
+                <ToDoList/> 
 
 
                 <button
@@ -49,10 +49,10 @@ function App() {
             )}
           </div>
         </div>
-      </div> */}
+      </div>
     
     
-    <ToDoList/> 
+   
     </>
   
   )
