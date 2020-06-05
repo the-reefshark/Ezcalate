@@ -10,20 +10,20 @@ class TodoList extends React.Component {
             todos: null,
             add: "",
             details: "",
-            activitytype: "",
+            activity_type: "",
             duedate: "",
             dateCompleted: null
         }
     }
 
     componentDidMount() {
-        console.log(this.state.todos)
+        console.log(this.state.todos) // REMOVE
         this.getTodoList();
     }
 
     setTodoList = data => {       
         const new_data = JSON.parse(data) 
-        console.log(new_data["rows"])
+        console.log(new_data["rows"]) // REMOVE
         if (new_data["rows"] === undefined) {
             this.setState({
                 todos: null,
@@ -35,11 +35,10 @@ class TodoList extends React.Component {
                 todos: new_data["rows"],
                 add: ""
             })
-            console.log(this.state.todos)
-            }
+            console.log(this.state.todos) // REMOVE
+        }
      }
     
-
     getTodoList = () => {
         fetch('http://localhost:3001')
             .then(response => { return response.text() })
@@ -47,80 +46,67 @@ class TodoList extends React.Component {
     }
 
     handleAdd = () => {
+       
+        console.log("TYPE: " + this.state.activity_type) // CHECK HERE FOR TYPE
+
         const newTodo = {
-            id: this.state.todos === null ? 0 : this.state.todos.length + 1,
-            text: this.state.add,
+            id: -1, // Arbitrary number that will be overridden upon the next get request
+            task_name: this.state.add,
             details: this.state.details,
-            type: this.state.activitytype,
+            activity_type: this.state.activity_type, // CHANGE RHS FOR TYPE
             completed: false,
-            duedate: this.state.DueDate,
+            duedate: this.state.duedate,
             dateCompleted: null
         }
 
-        console.log(newTodo)
+        console.log(newTodo) // REMOVE
 
-        console.log(this.state.todos)
+        console.log(this.state.todos) // REMOVE
 
         const updatedTodos = this.state.todos.length === 0 ? 
         [newTodo] : [...this.state.todos, newTodo]
 
-        console.log(updatedTodos)
+        console.log(updatedTodos) // REMOVE
 
-        
         this.setState({ 
             todos: updatedTodos, 
             add: "",  
             details: "",
-            activitytype: "",
+            activity_type: "",
             duedate: "",
-            dateCompleted: null })
+            dateCompleted: null 
+        })
 
-            const id = this.state.todos === null ? 0 : this.state.todos.length + 1
-            const text = newTodo.text
-            const details = newTodo.details
-            const type = newTodo.type
-            const completed = false
-            const duedate = null
-            const dateCompleted = null
-
-
+        const { task_name, details, activity_type, completed, duedate, dateCompleted } = newTodo
 
         fetch('http://localhost:3001/tododata', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, text, details, completed, type, duedate })
+            body: JSON.stringify({ task_name, details, completed, activity_type, duedate, dateCompleted })
         })
         .then(response => { return response.json })
         .then(data => {
             this.getTodoList()
-        })
-    
-        
+        })    
     }
 
     handleChange = id => {
-        let text
-        let completed
+        let newTodo
         const updatedTodos = this.state.todos.map(todo => {
           if (todo.id === id) {
             todo.completed = !todo.completed
-            text = todo.task_name
-            completed = todo.completed
+            newTodo = todo
           }
           return todo
         })
+
         this.setState({ todos: updatedTodos })
+        const { task_name, details, completed, activity_type, duedate, dateCompleted } = newTodo
 
-        //Delete old entry
         fetch(`http://localhost:3001/tododata/${id}`, {
-            method: 'DELETE' })
-        .then(response => { return response.json })
-
-        //Add new entry
-        fetch('http://localhost:3001/tododata', {
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, text, completed }),
+            body: JSON.stringify({ id, task_name, details, completed, activity_type, duedate, dateCompleted })
         })
         .then(response => { return response.json })
         .then(() => {
@@ -154,7 +140,7 @@ class TodoList extends React.Component {
         this.setState(
             {add: data["TaskName"],
              details: data["Details"],
-             activitytype: data["activitytype"],
+             activity_type: data["activity_type"],
              duedate: data["DueDate"],
              dateCompleted: null
             }, 
