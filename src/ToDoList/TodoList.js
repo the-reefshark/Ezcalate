@@ -1,6 +1,5 @@
 import React from "react"
 import TodoItem from "./TodoItem"
-import todosData from "./todosData"
 import ToDoFormModal from "./TodoFormModal"
 
 
@@ -48,10 +47,8 @@ class TodoList extends React.Component {
     }
 
     handleAdd = () => {
-       // event.preventDefault();
-       
         const newTodo = {
-            id: this.state.todos === null ? 0 : this.state.todos.length + 1, //somehow changing + 1 to - 1 works and doesnt screw up add
+            id: this.state.todos === null ? 0 : this.state.todos.length + 1,
             text: this.state.add,
             details: this.state.details,
             type: this.state.activitytype,
@@ -100,10 +97,6 @@ class TodoList extends React.Component {
 
     }
 
-    // handleAddBox = event => {
-    //     this.setState({ add: event.target.value })
-    // }
-
     handleChange = id => {
         let text
         let completed
@@ -121,9 +114,6 @@ class TodoList extends React.Component {
         fetch(`http://localhost:3001/tododata/${id}`, {
             method: 'DELETE' })
         .then(response => { return response.json })
-        // .then(data => {
-        //     this.getTodoList()
-        // })
 
         //Add new entry
         fetch('http://localhost:3001/tododata', {
@@ -178,27 +168,10 @@ class TodoList extends React.Component {
         const todoItems = this.state.todos === null ? null : this.state.todos.map(item => <TodoItem key={item.id} item={item}
             handleChange={this.handleChange} handleClick={this.handleClick} />)
         return (
-            
-            <>
-            
-
-
-            
             <div className="todo-list">
             <ToDoFormModal onSubmit = {this.onSubmit} />
-                {/* <form onSubmit={this.handleAdd}>
-                    <input
-                        type="text"
-                        name="newTodo"
-                        value={this.state.add}
-                        onChange={this.handleAddBox}
-                    />
-                    <button> Add </button>
-                    <br />
-                </form> */}
-                {todoItems ? (todoItems.length === 0 ? 'Add something using the box above!' : todoItems) : 'Cannot connect to server!'}
+                {todoItems ? (todoItems.length === 0 ? 'Add items using the box above!' : todoItems) : 'Cannot connect to server!'}
             </div>
-            </>
         )
     }
 }
