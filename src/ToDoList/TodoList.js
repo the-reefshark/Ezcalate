@@ -1,33 +1,42 @@
 import React from "react"
 import TodoItem from "./TodoItem"
 import ToDoFormModal from "./TodoFormModal"
+import Description from "../vert_layout/RightPanel/Description.js"
+import Timer from "../vert_layout/RightPanel/Timer.js"
 
 
 class TodoList extends React.Component {
     constructor() {
         super()
         this.state = {
+            // For the actual ToDoList
             todos: null,
             add: "",
             details: "",
             activity_type: "",
             duedate: "",
-            dateCompleted: null
+            dateCompleted: null,
+
+            // Additional states for the Description Panel
+            DidyouClick: false, // this state checks whether the checkbox was clicked
+            isClicked: false,  // this state checks whether the Description Panel button was clicked
+            isTimer: false,    // Haven't coded this out yet ps
+            currentDescription: null // this state is the todoitem object used in the Description Panel
         }
     }
 
     componentDidMount() {
-        console.log(this.state.todos) // REMOVE
         this.getTodoList();
     }
 
     setTodoList = data => {       
         const new_data = JSON.parse(data) 
-        console.log(new_data["rows"]) // REMOVE
-        if (new_data["rows"] === undefined) {
+        console.log(new_data["rows"])
+        if (new_data["rows"].length === 0) { // Updated this to use length because it is more accurate
             this.setState({
-                todos: null,
-                add: ""
+                todos: [],
+                add: "",
+                isClicked: false // When todolist is empty, description panel will be cleared
             })
         }
         else {
@@ -35,7 +44,6 @@ class TodoList extends React.Component {
                 todos: new_data["rows"],
                 add: ""
             })
-            console.log(this.state.todos) // REMOVE
         }
      }
     
@@ -46,7 +54,6 @@ class TodoList extends React.Component {
     }
 
     handleAdd = () => {
-       
         console.log("TYPE: " + this.state.activity_type) // CHECK HERE FOR TYPE
 
         const newTodo = {
@@ -59,14 +66,8 @@ class TodoList extends React.Component {
             dateCompleted: null
         }
 
-        console.log(newTodo) // REMOVE
-
-        console.log(this.state.todos) // REMOVE
-
         const updatedTodos = this.state.todos.length === 0 ? 
         [newTodo] : [...this.state.todos, newTodo]
-
-        console.log(updatedTodos) // REMOVE
 
         this.setState({ 
             todos: updatedTodos, 
@@ -90,11 +91,15 @@ class TodoList extends React.Component {
         })    
     }
 
-    handleChange = id => {
+
+    handleChange = id => { // Updated HandleChange as follows:
         let newTodo
         const updatedTodos = this.state.todos.map(todo => {
           if (todo.id === id) {
-            todo.completed = !todo.completed
+              if (this.state.DidyouClick === true) { // Checks if checkbox was clicked
+                    todo.completed = !todo.completed
+                    this.setState({DidyouClick : false}) // Reverts the state back to false (it will become true for AN INSTANCE when someone clicks the checkbox)
+              }
             newTodo = todo
           }
           return todo
@@ -114,6 +119,7 @@ class TodoList extends React.Component {
         })
     }
 
+
     handleClick = id => {
         const updatedTodos = this.state.todos.filter(todo => todo.id !== id)
         this.setState({ todos: updatedTodos })
@@ -124,41 +130,90 @@ class TodoList extends React.Component {
         .then(() => {
             this.getTodoList()
         })
+
     }
 
 
-    onSubmit = data => {
-        console.log(data)
+    onSubmit = data => { // Basically the function that handles the "submit button" in the AddTask form
         
-        console.log(this.state.todos)
-        console.log(data instanceof Event)
+        if (data.constructor.name === 'SyntheticEvent') {}
 
-        if (data.constructor.name === 'SyntheticEvent') {
-        }
-
-        else{
-        this.setState(
-            {add: data["TaskName"],
-             details: data["Details"],
-             activity_type: data["activity_type"],
-             duedate: data["DueDate"],
-             dateCompleted: null
-            }, 
-            () => {this.handleAdd()})
-        console.log(this.state.todos)
+        else {
+            this.setState(
+                {add: data["TaskName"],
+                details: data["Details"],
+                activity_type: data["activity_type"],
+                duedate: data["DueDate"],
+                dateCompleted: null
+                }, 
+                () => {this.handleAdd()})
         }
     }
 
+    onDetails = id => { // Basically the function that handles the "View Description of Task" Button
+        
+        var CurrentToDo = this.state.todos.filter(item => id === item["id"])
+        
+        if (this.state.currentDescription === null) { //Initially when Description Panel has no todoitem
+            this.setState({
+                isClicked: true,
+                currentDescription: CurrentToDo})    
+            }
+        
+        else if (id === this.state.currentDescription["0"]["id"]) { //This is to toggle the Description Panel on and off
+            this.setState(
+                {isClicked: !this.state.isClicked})
+            }
+
+        else { // This is to switch from one task to another in the Description Panel
+            this.setState({
+                currentDescription: CurrentToDo})   
+            }  
+    }
+        
+
+
+    handleCheck = id => { // Function that handles when you click the checkbox
+        this.setState(
+            {DidyouClick: true})
+    }
+
+
+    handleDetails = (id, currentTask, currentDetail) => { // Function that handles when you edit the Description Panel
+        this.state.todos.map(todo => {
+            if (todo.id === id) {
+                todo.task_name = currentTask
+                todo.details = currentDetail
+            }
+            return todo
+        })
+
+        this.handleChange(id);
+    }
+    
+   
 
     render() {
         // Restructure incoming data array
         const todoItems = this.state.todos === null ? null : this.state.todos.map(item => <TodoItem key={item.id} item={item}
-            handleChange={this.handleChange} handleClick={this.handleClick} />)
-        return (
-            <div className="todo-list">
-            <ToDoFormModal onSubmit = {this.onSubmit} />
-                {todoItems ? (todoItems.length === 0 ? 'Add items using the box above!' : todoItems) : 'Cannot connect to server!'}
+            handleChange={this.handleChange} handleClick={this.handleClick} onDetails = {this.onDetails} handleCheck = {this.handleCheck}/>)
+            
+            console.log(this.state.isClicked)
+       
+            return (
+            <div>
+                <div className="todo-list">
+                <p><ToDoFormModal onSubmit = {this.onSubmit} /></p>
+                {todoItems ? (todoItems.length === 0 ? 'Add items using the box above!' : todoItems) : 'Cannot connect to server!'} 
+                </div>
+                <div className="rightpanel">
+                    {this.state.isClicked ? 
+                    <Description currentDescription={this.state.currentDescription} handleChange= {this.handleDetails} /> : null}
+                    {this.state.isTimer ? <Timer /> : null}
+                    
+                </div>
             </div>
+         
         )
     }
 }

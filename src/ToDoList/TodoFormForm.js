@@ -8,16 +8,16 @@ function TodoFormForm(props) {
   
   const toSubmit = (data, event) => 
   {
-    console.log(event)
     event.preventDefault();
-    console.log(data)
-    console.log(props.onSubmit(data));
+    props.onSubmit(data);
+    props.onClick();
+
   }
   //console.log(errors);
 
   
   return (
-    <form onSubmit={handleSubmit(toSubmit)}>
+    <form onSubmit={handleSubmit(toSubmit)} >
       <div>
       <div class="form-group row"> 
         <label class="col-sm-2 col-form-label">Task Name</label>

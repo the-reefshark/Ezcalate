@@ -7,10 +7,14 @@ const Editable = ({
     type,
     placeholder,
     children,
+    update,
+    id,
+    currentTask,
+    currentDetail,
     ...props
 }) => {
-  // Manage the state whether to show the label or the input box. By default, label will be shown.
-// Exercise: It can be made dynamic by accepting initial state as props outside the component 
+
+// Manage the state whether to show the label or the input box. By default, label will be shown.
   const [isEditing, setEditing] = useState(false);
   
   useEffect(() => {
@@ -18,6 +22,7 @@ const Editable = ({
       childRef.current.focus();
     }
   }, [isEditing, childRef]);
+
 
 // Event handler while pressing any key while editing
 const handleKeyDown = (event, type) => {
@@ -34,10 +39,17 @@ const handleKeyDown = (event, type) => {
       (type === "textarea" && keys.indexOf(key) > -1) ||
       (type !== "textarea" && allKeys.indexOf(key) > -1)
     ) {
-      setEditing(false);
+      Handlefalse();
     }
 }
     // Handle when key is pressed
+
+
+    const Handlefalse = () => { // Added this extra function to simplify things
+      setEditing(false)
+      update(id, currentTask, currentDetail)
+    }
+    
 
 /*
 - It will display a label is `isEditing` is false
@@ -49,7 +61,7 @@ Note: For simplicity purpose, I removed all the classnames, you can check the re
     <section {...props}>
       {isEditing ? (
         <div
-          onBlur={() => setEditing(false)}
+          onBlur={() => Handlefalse() }
           onKeyDown={e => handleKeyDown(e, type)}
         >
           {children}
@@ -59,7 +71,7 @@ Note: For simplicity purpose, I removed all the classnames, you can check the re
           onClick={() => setEditing(true)}
         >
           <span>
-            {text || placeholder || "Editable content"}
+            {text || placeholder || ""}
           </span>
         </div>
       )}
