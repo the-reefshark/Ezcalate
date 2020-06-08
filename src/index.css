@@ -3,7 +3,7 @@ body {
   float: left;
 }
 
-.todo-list {
+/*.todo-list {
     background-color: white;
     margin: auto;
     width: 50%;
@@ -12,18 +12,18 @@ body {
     align-items: center;
     border: 1px solid #efefef;
     box-shadow:
-    /* The top layer shadow */
+    /* The top layer shadow 
         0 1px 1px rgba(0,0,0,0.15),
-            /* The second layer */
+            /* The second layer 
         0 10px 0 -5px #eee,
             /* The second layer shadow */
-        0 10px 1px -4px rgba(0,0,0,0.15),
-            /* The third layer */
+        /*0 10px 1px -4px rgba(0,0,0,0.15),
+            /* The third layer 
         0 20px 0 -10px #eee,
-            /* The third layer shadow */
+            /* The third layer shadow 
         0 20px 1px -9px rgba(0,0,0,0.15);
     padding: 30px;
-}
+ } */
 
 .todo-item {
     display: flex;
@@ -46,7 +46,7 @@ body {
 }
 
 .mid-panel {
-    width: 39.84%;
+    width: 79.86%;
     float: left;
     height: 100px;
     border-left: 1px solid rgb(0, 0, 0);
@@ -55,8 +55,8 @@ body {
     text-align: center;
 }
 
-.right-panel {
-    width: 39.84%;
+.todo-list {
+    width: 50.0%;
     float: left;
     height: 100px;
     border-left: 1px solid rgb(0, 0, 0);
@@ -65,6 +65,16 @@ body {
     text-align: center;
 }
 
+.rightpanel {
+    width: 50%;
+    float: left;
+    height: 100px;
+    border-left: 1px solid rgb(0, 0, 0);
+    height: 500px;
+    padding-top: 25px;
+    text-align: center;
+}
+ 
 
 
 input[type=checkbox] {
