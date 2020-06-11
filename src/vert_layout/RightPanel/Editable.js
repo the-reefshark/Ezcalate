@@ -43,8 +43,6 @@ const handleKeyDown = (event, type) => {
     }
 }
     // Handle when key is pressed
-
-
     const Handlefalse = () => { // Added this extra function to simplify things
       setEditing(false)
       update(id, currentTask, currentDetail)
@@ -67,9 +65,7 @@ Note: For simplicity purpose, I removed all the classnames, you can check the re
           {children}
         </div>
       ) : (
-        <div
-          onClick={() => setEditing(true)}
-        >
+        <div onClick={() => setEditing(true)}>
           <span>
             {text || placeholder || ""}
           </span>
