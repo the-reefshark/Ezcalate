@@ -6,11 +6,6 @@ function LeftPanel() {
         <header>
         <h2> Side Navbar </h2>
         </header>
-        <body>
-        
-
-
-        </body>
         </>
     )
 }

@@ -12,8 +12,18 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/', (req, res) => {
-  todolist_model.getTodolist()
+app.get('/sorted/:sort_by', (req, res) => {
+  todolist_model.getTodolist(req.params.sort_by)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+app.get('/filter', (req, res) => {
+  todolist_model.getFilteredTodolist(req.body)
   .then(response => {
     res.status(200).send(response);
   })

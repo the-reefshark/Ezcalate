@@ -1,7 +1,7 @@
 import React from "react"
+
 import LeftPanel from "./LeftPanel"
 import MidPanel from "./MidPanel"
-
 
 function MainPage() {
     return (
