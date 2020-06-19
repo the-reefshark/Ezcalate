@@ -80,7 +80,6 @@ function App() {
 
   return (
     <body >
-        
       <div className={classes.main}>
           <MainPage/>
       </div>

@@ -21,7 +21,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-const drawerWidth = 230
+const drawerWidth = 230 //width of the sideNavBar (change to function)
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,7 +68,7 @@ function LeftPanel() {
             {['All','Today', 'Month', 'Year'].map((text, index) => (
               <ListItem button key={text} onClick={() => console.log({text})}> 
                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={text} /> 
               </ListItem>
             ))}
           </List>

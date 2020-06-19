@@ -265,15 +265,6 @@ class TodoList extends React.Component {
         this.handleChange(id);
     }
 
-    
-
-
-
-
-
-
-
-
     render() {
         // Restructure incoming data array
         const todoItems = this.state.todos === null ? null : this.state.todos.map(item =>
