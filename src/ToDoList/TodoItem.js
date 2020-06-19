@@ -1,4 +1,6 @@
 import React from "react"
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+
 
 class TodoItem extends React.Component {
     
@@ -24,16 +26,24 @@ class TodoItem extends React.Component {
             - Button to open the details panel
         */
         return (
-            <div  className="todo-item">
-                <input 
+            <div className="todo-item">
+                <p className="date"style={this.props.item.completed ? completedStyle : null}>{(this.props.item.duedate).slice(0,10)}</p>
+                <input
+                    className ="checkbox"
                     type="checkbox"
                     id={this.props.item.id}
                     checked={this.props.item.completed}
                     onChange={this.props.handleCheck}
                 />
-                <p style={this.props.item.completed ? completedStyle : null}>{this.props.item.task_name}</p>
-                <button onClick={() => this.props.handleClick(this.props.item.id)}> X </button>
-                <button style ={completedStyle2} onClick={() => this.props.onDetails(this.props.item.id)}> Click to see Details! </button>
+                <button className = "task" onClick={() => this.props.onDetails(this.props.item.id)}>
+                    <p style={this.props.item.completed ? completedStyle : null}>{this.props.item.task_name}</p>
+                </button>
+
+
+                <div className="DeleteWrapper">
+                    <button className = "delete" onClick={() => this.props.handleClick(this.props.item.id)}> X </button>
+                </div>
+                
             </div>
         )
     }
