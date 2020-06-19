@@ -5,6 +5,9 @@ import ToDoFormModal from "./TodoFormModal"
 import Description from "../vert_layout/RightPanel/Description.js"
 import Timer from "../vert_layout/RightPanel/Timer.js"
 
+import Box from '@material-ui/core/Box';
+
+
 
 class TodoList extends React.Component {
     constructor() {
@@ -37,13 +40,43 @@ class TodoList extends React.Component {
         if (new_data["rows"].length === 0) { // Updated this to use length because it is more accurate
             this.setState({
                 todos: [],
+                completedTodos: [],
                 add: "",
                 isClicked: false // When todolist is empty, description panel will be cleared
             })
         }
         else {
+            // console.log(new_data["rows"].length)
+            // var available_tasks = [];
+            //     var completed_tasks = [];
+
+            // for (var i = 0; i < new_data["rows"].length; i++) {
+            //     console.log(new_data["rows"][i])
+                
+            
+
+            //     if (new_data["rows"][i]["completed"] === false) {
+            //         console.log(new_data["rows"][i])
+            //         available_tasks.push(new_data["rows"][i]);
+                    
+            //     }
+
+            //     else {
+            //         console.log(new_data["rows"][i])
+            //         completed_tasks.push(new_data["rows"][i])
+            //     }
+            // }
+          
+
+            // console.log(available_tasks);
+            // console.log(completed_tasks)
+
+
+
+
             this.setState({
                 todos: new_data["rows"],
+                
                 add: ""
             })
         }
@@ -197,6 +230,10 @@ class TodoList extends React.Component {
         const updatedTodos = this.state.todos.map(todo => {
             if (todo.id === id) {
                 todo.completed = !todo.completed
+                if (todo.dateCompleted === undefined) {
+                    todo.dateCompleted = new Date().toISOString().slice(0,10); 
+                }
+                
                 newTodo = todo
             }
             return todo
@@ -228,6 +265,15 @@ class TodoList extends React.Component {
         this.handleChange(id);
     }
 
+    
+
+
+
+
+
+
+
+
     render() {
         // Restructure incoming data array
         const todoItems = this.state.todos === null ? null : this.state.todos.map(item =>
@@ -235,19 +281,61 @@ class TodoList extends React.Component {
                 onDetails = {this.onDetails} handleCheck = {this.handleCheck}/>
         )
 
+        // const Available_Tasks = todoItems.filter(item => item.completed === true);
+        console.log(todoItems)
+        // const Completed_Tasks =  todoItems.filter(item => item.completed === false);
+
+        // const CompletedItems = this.state.completedTodos === null ? null : this.state.completedTodos.map(item =>
+        //     <TodoItem key={item.id} item={item} handleChange={this.handleChange} handleClick={this.handleClick}
+        //         onDetails = {this.onDetails} handleCheck = {this.handleCheck}/>
+        // )
+
         return (
             <div>
-                <div className="todo-list">
-                <p><ToDoFormModal onSubmit = {this.onSubmit} /></p>
-                {todoItems ? (todoItems.length === 0 ? 'Add items using the box above!' : todoItems) :
-                    'Cannot connect to server!'}
-                </div>
-                <div className="rightpanel">
-                    {this.state.isClicked ? 
-                    <Description currentDescription={this.state.currentDescription} handleChange= {this.handleDetails} /> : null}
-                    {this.state.isTimer ? <Timer /> : null}
-                </div>
-            </div>
+                <Box
+                    display="flex"
+                    flexWrap="nowrap"
+                    // justifyContent="space-around"
+                    bgcolor="transparent"
+                    
+                >
+
+                <Box className="todo-list" borderRadius={16}>
+                    <p><ToDoFormModal onSubmit = {this.onSubmit} /></p>
+                    <div>
+                        {todoItems ? (todoItems.length === 0 ? 'Add items using the box above!' :
+                            [<p className ="todo-section1"><b><u>Available Tasks</u></b></p>,
+                            <div className ="todo-header">
+                                <p><b>Due date</b></p> 
+                                <p><b>Task Name</b></p>
+                                </div>,  
+                                todoItems]
+                            ) :
+                            'Cannot connect to server!'}
+
+                        {/* {Completed_Tasks ? (Completed_Tasks.length === 0 ? 'No Completed Tasks' : 
+                            [<p className ="todo-section2"><b><u>Completed Tasks</u></b></p>,
+                            <div className ="todo-header">
+                                <p><b>Date done</b></p> 
+                                <p><b>Task Name</b></p>
+                                </div>,  
+                                Completed_Tasks]) : "" */}
+
+                        
+                    </div>
+                </Box>
+
+                <Box>
+                    <div className="rightpanel">
+                        {this.state.isClicked ?
+                        [<Description currentDescription={this.state.currentDescription} handleChange= {this.handleDetails} isClicked={this.state.isClicked} /> 
+                        ,<Timer />]
+                        : null}
+                        
+                    </div>
+                </Box>
+            </Box>
+        </div>
         )
     }
 }

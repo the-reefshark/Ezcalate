@@ -1,7 +1,7 @@
 
 
 // import ToDoList from "./ToDoList/TodoList"
-// import "./App.css"
+import "./App.css"
 import React from 'react';
 // import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 // import { useAuth0 } from './context/auth0-context';
@@ -10,6 +10,22 @@ import React from 'react';
 //Imports for vert layout
 import Header from "./Header"
 import MainPage from "./vert_layout/MainPage"
+import { makeStyles } from '@material-ui/core/styles';
+import CardMedia from '@material-ui/core/CardMedia';
+import Paper from '@material-ui/core/Paper';
+
+
+const useStyles = makeStyles((theme) => ({
+  
+  main: {
+    // backgroundImage: Image,
+    // height: "100%",
+    // backgroundposition: "center",
+    // backgroundrepeat: "no-repeat",
+    // backgroundsize: "cover"
+  }
+
+}));
 
 function App() {
   //const { isLoading, user, loginWithRedirect, logout } = useAuth0();
@@ -57,11 +73,19 @@ function App() {
   // )
 
   // Vertical Panels version:
+
+  
+  const classes = useStyles();
+
+
   return (
-    <div>
-      <Header />
-      <MainPage />
-    </div>
+    <body >
+        
+      <div className={classes.main}>
+          <MainPage/>
+      </div>
+      
+    </body>
   )
 }
 

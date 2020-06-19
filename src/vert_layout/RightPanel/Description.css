@@ -1,0 +1,15 @@
+.header {
+    background: white;
+    text-align: left;
+    padding: 0;
+}
+
+.details{
+    margin: 20px
+}
+
+.Task {
+    font-size: x-large;
+    padding-bottom: 5px;
+    margin: 5px;
+}
