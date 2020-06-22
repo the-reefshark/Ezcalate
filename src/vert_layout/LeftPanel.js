@@ -7,6 +7,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
+
+import IconButton from '@material-ui/core/IconButton';
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -21,6 +24,13 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonIcon from '@material-ui/icons/Person';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
+//Grouping Icons
+import WorkIcon from '@material-ui/icons/Work';
+import SchoolIcon from '@material-ui/icons/School';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FaceIcon from '@material-ui/icons/Face';
+import PanToolIcon from '@material-ui/icons/PanTool';
+
 const drawerWidth = 230 //width of the sideNavBar (change to function)
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+
     
   },
   drawerPaper: {
@@ -38,14 +49,15 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerContainer: {
     overflow: 'auto',
+    paddingTop: "20px"
     
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    
   },
   }));
-
 
 function LeftPanel() {
 
@@ -67,12 +79,14 @@ function LeftPanel() {
           <List>
             {['All','Today', 'Month', 'Year'].map((text, index) => (
               <ListItem button key={text} onClick={() => console.log({text})}> 
+      
                 <ListItemIcon>{text === 'All' ? <CalendarTodayIcon /> : 
                                text === 'Today' ? <TodayIcon /> : 
                                text === 'Month' ? <EventNoteIcon /> :
                              /*text === 'year'*/ <DateRangeIcon />
                               }
                 </ListItemIcon>
+
                 <ListItemText primary={text} /> 
               </ListItem>
             ))}
@@ -81,6 +95,7 @@ function LeftPanel() {
           <List>
             {['Work', 'School', 'Health', 'Personal','Others'].map((text, index) => (
                <ListItem button key={text} onClick={() => console.log({text})}> 
+
                 <ListItemIcon>{text === 'Work' ? <WorkIcon /> :
                                text === 'School' ? <SchoolIcon /> :
                                text === 'Health' ? <FavoriteIcon /> :
@@ -88,6 +103,7 @@ function LeftPanel() {
                              /*text === 'Others'*/ <InboxIcon /> 
                               }
                 </ListItemIcon>
+
                 <ListItemText primary={text} />
               </ListItem>
             ))}

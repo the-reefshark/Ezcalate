@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import "./timer.css"
 
-const Timer = () => {
+// function that changes single digits to double digits
+function n(n){
+  return n > 9 ? "" + n: "0" + n;
+}
+
+
+const Timer = props => {
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 

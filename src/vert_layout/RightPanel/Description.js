@@ -4,11 +4,14 @@ import "./Description.css"
 import Slide from '@material-ui/core/Slide';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
+import Timer from "./Timer"
+import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#f8f4f3" ,
-    opacity: "100%"
+    backgroundColor: "white" ,
+    opacity: "100%",
+    width: "100%",
   },
   
   header: {
@@ -24,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   details: {
     color: "#000000",
     opacity: "100%",
+
    
     fontFamily: 'Trocchi',
     fontSize: "30px",
@@ -59,6 +63,8 @@ function Description(props) {
   return (
     <Slide direction="left" in={props.isClicked} mountOnEnter unmountOnExit>
       <div className={classes.root}>
+      <Box height="100%"  >
+        <Box>
         <header className={classes.header}>
           <div className="Task">
             <Editable
@@ -82,8 +88,11 @@ function Description(props) {
             </Editable>
           </div>
         </header>
+        </Box>
+
         <Divider/>
       
+        <Box>
         <div className = {classes.details}>
         <Editable
           text={detail}
@@ -103,7 +112,12 @@ function Description(props) {
           />
         </Editable>
         </div>
+        </Box>
+        <Box >
+          <Timer/>
+       </Box>
       
+      </Box>
       </div>
       </Slide>
   )
