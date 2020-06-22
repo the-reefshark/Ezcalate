@@ -53,8 +53,8 @@ function MainPage() {
             bgcolor="transparent"
             order="2"
             >
-             <Box>
-            <LeftPanel menuState={menu} handleMenu={handleMenu} />
+            <Box>
+                <LeftPanel menuState={menu} handleMenu={handleMenu} />
             </Box>
                 <Box className={classes.midpanel } order="2">
                     <MidPanel />
