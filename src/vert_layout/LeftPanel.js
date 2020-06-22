@@ -1,21 +1,28 @@
 /* This is the original code for Expansion Drawer*/
 
-import { sizing } from '@material-ui/system';
 import React from 'react';
-import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
+
 import IconButton from '@material-ui/core/IconButton';
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import InboxIcon from '@material-ui/icons/Inbox';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import TodayIcon from '@material-ui/icons/Today';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import WorkIcon from '@material-ui/icons/Work';
+import SchoolIcon from '@material-ui/icons/School';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import PersonIcon from '@material-ui/icons/Person';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 //Grouping Icons
 import WorkIcon from '@material-ui/icons/Work';
@@ -52,8 +59,6 @@ const useStyles = makeStyles((theme) => ({
   },
   }));
 
-  var groups = [<WorkIcon/>, <SchoolIcon/>, <FavoriteIcon/>, <FaceIcon/>, <PanToolIcon/> ]
-
 function LeftPanel() {
 
     const classes = useStyles();
@@ -74,7 +79,14 @@ function LeftPanel() {
           <List>
             {['All','Today', 'Month', 'Year'].map((text, index) => (
               <ListItem button key={text} onClick={() => console.log({text})}> 
-                <ListItemIcon>{groups[index]}</ListItemIcon>
+      
+                <ListItemIcon>{text === 'All' ? <CalendarTodayIcon /> : 
+                               text === 'Today' ? <TodayIcon /> : 
+                               text === 'Month' ? <EventNoteIcon /> :
+                             /*text === 'year'*/ <DateRangeIcon />
+                              }
+                </ListItemIcon>
+
                 <ListItemText primary={text} /> 
               </ListItem>
             ))}
@@ -83,7 +95,15 @@ function LeftPanel() {
           <List>
             {['Work', 'School', 'Health', 'Personal','Others'].map((text, index) => (
                <ListItem button key={text} onClick={() => console.log({text})}> 
-                <ListItemIcon>{groups[index]}</ListItemIcon>
+
+                <ListItemIcon>{text === 'Work' ? <WorkIcon /> :
+                               text === 'School' ? <SchoolIcon /> :
+                               text === 'Health' ? <FavoriteIcon /> :
+                               text === 'Personal' ? <PersonIcon /> :
+                             /*text === 'Others'*/ <InboxIcon /> 
+                              }
+                </ListItemIcon>
+
                 <ListItemText primary={text} />
               </ListItem>
             ))}
@@ -91,7 +111,7 @@ function LeftPanel() {
           <Divider />
          
           <ListItem button key="Completed Tasks" onClick={() => console.log("Hello")}>
-                <ListItemIcon><MailIcon /></ListItemIcon>
+                <ListItemIcon><CheckCircleIcon /></ListItemIcon>
                 <ListItemText primary="Completed Tasks" />
               </ListItem>
         </div>

@@ -53,10 +53,8 @@ function MainPage() {
             bgcolor="transparent"
             order="2"
             >
-            
-            
-        
                 <Box className={classes.midpanel }>
+
                     <MidPanel />
                 </Box>
         </Box>
