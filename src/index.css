@@ -68,13 +68,14 @@ body{
     margin-top: 50px;
 }
 
-.todo-item {
+/* Updated with Flexbox Properties using Material UI in TodoItem */
+/* .todo-item {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     padding: 0px 10px 0px; 
     margin: 10px;
-    /* width: 100%;  */
+    width: 100%; 
     border-bottom: 1px solid #cecece;
     font-family: Roboto, sans-serif;
     font-weight: 100;
@@ -82,12 +83,14 @@ body{
     color: #333333;
     vertical-align: top;
     position: relative;
-}
-.date {
-    width: 20%;
+} */
+
+/* Updated with Flexbox Properties using Material UI in TodoItem */
+/* .date {
+    /* width: 20%;
     margin-right: 5px;
     text-align: left;
-    display: inline-block;
+    display: inline-block; 
 
 }
 
@@ -99,7 +102,7 @@ body{
 
 .task {
     border: transparent;
-    background-color: white;
+    background-color: transparent;
     display: block;
     width: 100%;
     text-align: left;
@@ -117,7 +120,7 @@ body{
     float: left;
     height: 100px;
     text-align: left;
-} 
+}  */
 
 /*Replaced with Material UI Style in MainPage.js*/
 /* .mid-panel {
@@ -132,6 +135,8 @@ body{
     
 } */
 
+
+/*These two are necessary because ToDoList is still a class component*/
 .todo-list {
     width: 60.0%;
     float: left;
@@ -140,26 +145,26 @@ body{
     padding-top: 25px;
     text-align: center;
     background-color: rgba(255,255,255, 0.9);
-
-    
  }
 
 .rightpanel {
     width: 100%;
     float: left;
-    height: 500px;
-    margin-left: 50px;
+    height: 80%;
+    margin-left: 35px;
     text-align: center;
-
+    
+    background-color: transparent;
 } 
  
 
-
- input[type=checkbox] {
+/*Replaced with Material UI checboxes in TodoItem*/
+ /* input[type=checkbox] {
     margin-right: 10px;
     font-size: 30px;
 }
 
 input[type=checkbox]:focus {
     outline: 0;
-}
+} */
+

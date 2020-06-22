@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         float: "left",
         height: "100%",
         marginTop: "100px",
-        marginLeft: "50px",
+        marginLeft: "250px",
         paddingTop: "20px",
         textAlign: "center",
         backgroundColor: "rgba(255,255,255, 0)"
@@ -53,10 +53,10 @@ function MainPage() {
             bgcolor="transparent"
             order="2"
             >
-             <Box>
-            <LeftPanel menuState={menu} handleMenu={handleMenu} />
-            </Box>
-                <Box className={classes.midpanel } order="2">
+            
+            
+        
+                <Box className={classes.midpanel }>
                     <MidPanel />
                 </Box>
         </Box>

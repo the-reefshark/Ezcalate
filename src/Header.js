@@ -8,7 +8,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Box from '@material-ui/core/Box';
 import zIndex from '@material-ui/core/styles/zIndex';
+import icon from "./Background Images/icon.jpg"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,12 +21,16 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    fontFamily: 'Stylish',
+    fontSize: "40px"
   },
   Appbar:{
     background: "black",
     position: "fixed",
+    paddingBottom: "15px",
     // 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
     zIndex: theme.zIndex.drawer + 1 // trying to make header [pop out]
+    
   }
 }));
 
@@ -33,19 +39,12 @@ export default function MenuAppBar(props) {
 
   return (
       <AppBar position="static" className= {classes.Appbar}>
+       
         <Toolbar >
-        <div className="MenuIconWrapper" onClick={props.handleMenu}>
-          <IconButton
-            edge="start" 
-            className={classes.menuButton} 
-            color="inherit" 
-            aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          </div>
           <Typography variant="h6" className={classes.title}>
             Ezcalate
           </Typography>
+         
             <div>
               <IconButton
                 aria-label="account of current user"

@@ -1,5 +1,5 @@
 import React from "react"
-
+import LeftPanel from "../vert_layout/LeftPanel.js"
 import TodoItem from "./TodoItem"
 import ToDoFormModal from "./TodoFormModal"
 import Description from "../vert_layout/RightPanel/Description.js"
@@ -23,7 +23,7 @@ class TodoList extends React.Component {
 
             // Additional states for the Description Panel
             isClicked: false,  // checks whether the Description Panel button was clicked
-            isTimer: false,    // Haven't coded this out yet ps
+            CurrentTime: "0", // the current time on the timer for the current toDoItem
             currentDescription: null // todoitem used in the Description Panel
         }
     }
@@ -283,16 +283,20 @@ class TodoList extends React.Component {
 
         return (
             <div>
+                <LeftPanel  />
+
                 <Box
                     display="flex"
                     flexWrap="nowrap"
-                    // justifyContent="space-around"
-                    bgcolor="transparent"
-                    
+                    justifyContent="space-between"
+                    // border="solid black"
                 >
 
-                <Box className="todo-list" borderRadius={16}>
-                    <p><ToDoFormModal onSubmit = {this.onSubmit} /></p>
+                <Box className="todo-list" borderRadius={16} height="auto">
+                    <Box>
+                        <p><ToDoFormModal onSubmit = {this.onSubmit} /></p>
+                    </Box>
+                    <Box>
                     <div>
                         {todoItems ? (todoItems.length === 0 ? 'Add items using the box above!' :
                             [<p className ="todo-section1"><b><u>Available Tasks</u></b></p>,
@@ -314,15 +318,16 @@ class TodoList extends React.Component {
 
                         
                     </div>
+                    </Box>
                 </Box>
 
-                <Box>
+                <Box flexGrow="1"  >
                     <div className="rightpanel">
                         {this.state.isClicked ?
-                        [<Description currentDescription={this.state.currentDescription} handleChange= {this.handleDetails} isClicked={this.state.isClicked} /> 
-                        ,<Timer />]
+                        <Description currentDescription={this.state.currentDescription} handleChange= {this.handleDetails} isClicked={this.state.isClicked} />
                         : null}
                         
+                        {/* <Timer CurrentTime={this.state.CurrentTime}/> */}
                     </div>
                 </Box>
             </Box>
