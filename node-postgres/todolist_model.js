@@ -15,9 +15,38 @@ pool.on('error', (err, client) => {
 
 pool.connect();
 
-// Get TodoList from database sorted by given parameter
+// Get TodoList from database filtered by given sort_by parameter
 const getTodolist = sort_by => {
-  let text = 'SELECT * FROM tododata ORDER BY completed ASC, ' + sort_by + ' ASC'
+  const param = 'id' // Change this to change sorting param
+  let text, today, startDate, endDate
+  switch (sort_by) {
+    case 'All':
+      text = 'SELECT * FROM tododata ORDER BY completed ASC, ' + param + ' ASC'
+      break
+    case 'Completed':
+      text = 'SELECT * FROM tododata WHERE completed = true ORDER BY completed ASC, ' + param + ' ASC'
+      break
+    case 'Today':
+      today = new Date()
+      startDate = "'" + today.getFullYear() + "-0" + (today.getMonth() + 1) + "-" + today.getDate() + "'"
+      text = 'SELECT * FROM tododata WHERE duedate = ' + startDate + ' ORDER BY completed ASC, ' + param + ' ASC'
+      break
+    case 'Month':
+      today = new Date()
+      startDate = "'" + today.getFullYear() + "-" + (today.getMonth() + 1) + "-01'"
+      endDate = "'" + today.getFullYear() + "-" + (today.getMonth() + 2) + "-01'"
+      text = 'SELECT * FROM tododata WHERE duedate BETWEEN ' + startDate + ' AND ' + endDate + ' ORDER BY completed ASC, ' + param + ' ASC'
+      break
+    case 'Year':
+      today = new Date()
+      startDate = "'" + today.getFullYear() + "-01-01'"
+      endDate = "'" + (today.getFullYear() + 1) + "-01-01'"
+      text = 'SELECT * FROM tododata WHERE duedate BETWEEN ' + startDate + ' AND ' + endDate + ' ORDER BY completed ASC, ' + param + ' ASC'
+      break
+    default:
+      text = "SELECT * FROM tododata WHERE activity_type = '" + sort_by + "' ORDER BY completed ASC, " + param + " ASC"
+      break
+  }
 
   return new Promise(function(resolve, reject) {
     pool.query(text, (error, results) => {
@@ -30,10 +59,13 @@ const getTodolist = sort_by => {
 }
 
 // Get TodoList from database filtered by given param and sorted by given parameter (sort_by)
+// NOT BEING USED
 const getFilteredTodolist = body => {
-  const { param, value, sort_by } = body
+  const { filter, value, sort_by } = body
 
-  const text = 'SELECT * FROM tododata WHERE ' + param + ' = ' + value + ' ORDER BY completed ASC, ' + sort_by + ' ASC'
+  const text = filter !== "" || value !== "" ?
+    'SELECT * FROM tododata WHERE ' + filter + ' = ' + value + ' ORDER BY completed ASC, ' + sort_by + ' ASC' :
+    'SELECT * FROM tododata ORDER BY completed ASC, ' + sort_by + ' ASC'
 
   return new Promise(function(resolve, reject) {
     pool.query(text, (error, results) => {

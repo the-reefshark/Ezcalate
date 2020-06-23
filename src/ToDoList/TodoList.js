@@ -7,8 +7,6 @@ import Timer from "../vert_layout/RightPanel/Timer.js"
 
 import Box from '@material-ui/core/Box';
 
-
-
 class TodoList extends React.Component {
     constructor() {
         super()
@@ -20,12 +18,22 @@ class TodoList extends React.Component {
             activity_type: "",
             duedate: "",
             dateCompleted: null,
+            sort_by: "All",
 
             // Additional states for the Description Panel
             isClicked: false,  // checks whether the Description Panel button was clicked
             CurrentTime: "0", // the current time on the timer for the current toDoItem
             currentDescription: null // todoitem used in the Description Panel
         }
+    }
+
+    updateFilterParams = text => {
+        this.setState(
+            {
+                sort_by: text
+            },
+            () => {this.getTodoList()}
+        )
     }
 
     // Gets TodoList data as soon as application runs
@@ -84,26 +92,10 @@ class TodoList extends React.Component {
 
     /*
         Sends fetch request to obtain a list of TodoList items ordered by their index
-        TO BE CONNECTED
     */
-    getTodoList = () => { // Pass sort_by as input here
-        let sort_by = 'id' // DELETE THIS LINE when passing in sort_by as param
-        fetch(`http://localhost:3001/sorted/${sort_by}`)
-            .then(response => { return response.text() })
-            .then(data => { this.setTodoList(data) })
-    }
-
-    /*
-        Sends fetch request to obtain a list of TodoList items filtered by given parameter (param) and 
-        ordered by the given parameter (sorted_by)
-        TO BE CONNECTED
-    */
-    getFilteredTodolist = input => {
-        const { param, value, sort_by } = input // Pass these 3 parameters as input into func
-
-        fetch(`http://localhost:3001/filter`, {
-            body: JSON.stringify({ param, value, sort_by })
-        })
+    getTodoList = () => {
+        console.log("PARAM: " + this.state.sort_by)
+        fetch(`http://localhost:3001/sorted/${this.state.sort_by}`)
             .then(response => { return response.text() })
             .then(data => { this.setTodoList(data) })
     }
@@ -114,7 +106,7 @@ class TodoList extends React.Component {
             id: -1, // Arbitrary number that will be overridden upon the next get request
             task_name: this.state.add,
             details: this.state.details,
-            activity_type: this.state.activity_type, // CHANGE RHS FOR TYPE
+            activity_type: this.state.activity_type,
             completed: false,
             duedate: this.state.duedate,
             dateCompleted: null
@@ -283,7 +275,7 @@ class TodoList extends React.Component {
 
         return (
             <div>
-                <LeftPanel  />
+                <LeftPanel changeParams = {this.updateFilterParams} />
 
                 <Box
                     display="flex"
@@ -324,7 +316,8 @@ class TodoList extends React.Component {
                 <Box flexGrow="1"  >
                     <div className="rightpanel">
                         {this.state.isClicked ?
-                        <Description currentDescription={this.state.currentDescription} handleChange= {this.handleDetails} isClicked={this.state.isClicked} />
+                        <Description currentDescription = {this.state.currentDescription} handleChange = {this.handleDetails}
+                            isClicked = {this.state.isClicked} />
                         : null}
                         
                         {/* <Timer CurrentTime={this.state.CurrentTime}/> */}
