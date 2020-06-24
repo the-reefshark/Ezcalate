@@ -77,13 +77,14 @@ const getFilteredTodolist = body => {
   })
 }
 
-// Update database with update values
-const updateTodoItem = (body) => {
+// Update database with updated values
+const updateTodoItem = body => {
   return new Promise(function(resolve, reject) {
 
-    const { id, task_name, details, completed, activity_type, duedate, dateCompleted } = body
+    const { id, task_name, details, completed, activity_type, duedate, dateCompleted, timer } = body
 
-    pool.query('UPDATE tododata SET task_name = $2, details = $3, completed = $4, activity_type = $5, duedate = $6, dateCompleted = $7 WHERE id = $1 RETURNING *', [id, task_name, details, completed, activity_type, duedate, dateCompleted], 
+    pool.query('UPDATE tododata SET task_name = $2, details = $3, completed = $4, activity_type = $5, duedate = $6, dateCompleted = $7, timer = $8 WHERE id = $1 RETURNING *',
+        [id, task_name, details, completed, activity_type, duedate, dateCompleted, timer], 
       (error, results) => {
         if (error) {
           reject(error)
@@ -98,7 +99,8 @@ const createTodoItem = (body) => {
 
     const { task_name, details, completed, activity_type, duedate, dateCompleted } = body
     
-    pool.query('INSERT INTO tododata ( task_name, details, completed, activity_type, duedate, dateCompleted ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [task_name, details, completed, activity_type, duedate, dateCompleted], 
+    pool.query('INSERT INTO tododata ( task_name, details, completed, activity_type, duedate, dateCompleted, timer ) VALUES ($1, $2, $3, $4, $5, $6, 0) RETURNING *',
+        [task_name, details, completed, activity_type, duedate, dateCompleted], 
       (error, results) => {
         if (error) {
           reject(error)

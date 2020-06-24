@@ -27,6 +27,7 @@ class TodoList extends React.Component {
         }
     }
 
+    // Updates the filter parameter when sidebar button is pressed and forces an update of the TodoList
     updateFilterParams = text => {
         this.setState(
             {
@@ -74,13 +75,6 @@ class TodoList extends React.Component {
             //         completed_tasks.push(new_data["rows"][i])
             //     }
             // }
-          
-
-            // console.log(available_tasks);
-            // console.log(completed_tasks)
-
-
-
 
             this.setState({
                 todos: new_data["rows"],
@@ -109,7 +103,8 @@ class TodoList extends React.Component {
             activity_type: this.state.activity_type,
             completed: false,
             duedate: this.state.duedate,
-            dateCompleted: null
+            dateCompleted: null,
+            timer: 0 // Doesn't get passed into the database, database sets default of 0
         }
 
         /*
@@ -152,12 +147,12 @@ class TodoList extends React.Component {
         })
 
         this.setState({ todos: updatedTodos })
-        const { task_name, details, completed, activity_type, duedate, dateCompleted } = newTodo
+        const { task_name, details, completed, activity_type, duedate, dateCompleted, timer } = newTodo
 
         fetch(`http://localhost:3001/tododata/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, task_name, details, completed, activity_type, duedate, dateCompleted })
+            body: JSON.stringify({ id, task_name, details, completed, activity_type, duedate, dateCompleted, timer })
         })
         .then(response => { return response.json })
         .then(() => {
@@ -215,7 +210,7 @@ class TodoList extends React.Component {
         }  
     }
         
-    // Function that handles when you click the checkbox
+    // Function that handles the action of clicking the checkbox
     handleCheck = event => {
         let id = parseInt(event.target.id, 10)
         let newTodo
@@ -225,19 +220,18 @@ class TodoList extends React.Component {
                 if (todo.dateCompleted === undefined) {
                     todo.dateCompleted = new Date().toISOString().slice(0,10); 
                 }
-                
                 newTodo = todo
             }
             return todo
         })
 
         this.setState({ todos: updatedTodos })
-        const { task_name, details, completed, activity_type, duedate, dateCompleted } = newTodo
+        const { task_name, details, completed, activity_type, duedate, dateCompleted, timer } = newTodo
 
         fetch(`http://localhost:3001/tododata/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, task_name, details, completed, activity_type, duedate, dateCompleted })
+            body: JSON.stringify({ id, task_name, details, completed, activity_type, duedate, dateCompleted, timer })
         })
         .then(response => { return response.json })
         .then(() => {
@@ -264,14 +258,7 @@ class TodoList extends React.Component {
                 onDetails = {this.onDetails} handleCheck = {this.handleCheck}/>
         )
 
-        // const Available_Tasks = todoItems.filter(item => item.completed === true);
         console.log(todoItems)
-        // const Completed_Tasks =  todoItems.filter(item => item.completed === false);
-
-        // const CompletedItems = this.state.completedTodos === null ? null : this.state.completedTodos.map(item =>
-        //     <TodoItem key={item.id} item={item} handleChange={this.handleChange} handleClick={this.handleClick}
-        //         onDetails = {this.onDetails} handleCheck = {this.handleCheck}/>
-        // )
 
         return (
             <div>
@@ -299,16 +286,6 @@ class TodoList extends React.Component {
                                 todoItems]
                             ) :
                             'Cannot connect to server!'}
-
-                        {/* {Completed_Tasks ? (Completed_Tasks.length === 0 ? 'No Completed Tasks' : 
-                            [<p className ="todo-section2"><b><u>Completed Tasks</u></b></p>,
-                            <div className ="todo-header">
-                                <p><b>Date done</b></p> 
-                                <p><b>Task Name</b></p>
-                                </div>,  
-                                Completed_Tasks]) : "" */}
-
-                        
                     </div>
                     </Box>
                 </Box>
