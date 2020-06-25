@@ -16,13 +16,11 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
       width: "100%",
     },
-
-
-  }));
+}));
 
 function ToDoItem(props){
 
- //Completed Paragraph styling
+    //Completed Paragraph styling
     const completedStyle = {
         fontStyle: "italic",
         color: "#cdcdcd",
@@ -31,43 +29,39 @@ function ToDoItem(props){
 
     const classes = useStyles();
 
-return(
+    return(
+        <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="flex-start"
+            alignItems="center"
+        >
+            <Box order="1" flexGrow="1" flexFlow="row nowrap" whiteSpace="nowrap" justifyContent="center">
+                <p className="date" style={props.item.completed ? completedStyle : null}>{"  " + (props.item.duedate).slice(0,10)}</p>
+            </Box>
 
-    <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="flex-start"
-        alignItems="center"
-    >
-    
-        <Box order="1" flexGrow="1" flexFlow="row nowrap" whiteSpace="nowrap" justifyContent="center">
-            <p className="date" style={props.item.completed ? completedStyle : null}>{"  " + (props.item.duedate).slice(0,10)}</p>
+            <Box order="2">
+                <Checkbox
+                    className ="checkbox"
+                    type="checkbox"
+                    id={props.item.id}
+                    checked={props.item.completed}
+                    onChange={props.handleCheck}
+                />
+            </Box>
+
+            <Box order="3" flexGrow="14" >
+                <Button className={classes.root} onClick={() => props.onDetails(props.item.id)}>
+                    <p style={props.item.completed ? completedStyle : null}>{props.item.task_name}</p>
+                </Button>
+            </Box>
+
+            <Box order="4">
+                <IconButton className = "delete" onClick={() => props.handleClick(props.item.id)}> 
+                    <HighlightOffIcon />
+                </IconButton>  
+            </Box>     
         </Box>
-
-        <Box order="2">
-            <Checkbox
-                className ="checkbox"
-                type="checkbox"
-                id={props.item.id}
-                checked={props.item.completed}
-                onChange={props.handleCheck}
-            />
-        </Box>
-
-        <Box order="3" flexGrow="14" >
-            <Button className={classes.root} onClick={() => props.onDetails(props.item.id)}>
-                <p style={props.item.completed ? completedStyle : null}>{props.item.task_name}</p>
-            </Button>
-        </Box>
-
-        <Box order="4">
-            <IconButton className = "delete" onClick={() => props.handleClick(props.item.id)}> 
-                <HighlightOffIcon />
-            </IconButton>  
-        </Box>     
- 
-    </Box>
-
 )}
 
 export default ToDoItem

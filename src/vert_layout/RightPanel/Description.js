@@ -48,8 +48,6 @@ function Description(props) {
   const [task, setTask] = useState(()=> {return item["0"]["task_name"]})
   const [detail, setDetail] = useState(()=> item["0"]["details"])
 
-  
-
   useEffect(()=> { // This updates the Description Panel when swtiching tasks
     if (props.currentDescription !== item) {
       SetItem(props.currentDescription)
@@ -114,13 +112,11 @@ function Description(props) {
         </div>
         </Box>
         <Box >
-          <Timer/>
+          <Timer/> 
        </Box>
-      
-      </Box>
-      </div>
-      </Slide>
-  )
-}
+    </Box>
+    </div>
+  </Slide>
+)}
 
 export default Description;
