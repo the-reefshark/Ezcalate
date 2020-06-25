@@ -7,9 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
-
-import IconButton from '@material-ui/core/IconButton';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -23,9 +20,6 @@ import SchoolIcon from '@material-ui/icons/School';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonIcon from '@material-ui/icons/Person';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-
-//Grouping Icons
-
 
 const drawerWidth = 230 //width of the sideNavBar (change to function)
 
@@ -55,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   }));
 
-function LeftPanel() {
+function LeftPanel(props) {
 
     const classes = useStyles();
     const theme = useTheme();
@@ -73,8 +67,8 @@ function LeftPanel() {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {['All','Today', 'Month', 'Year'].map((text, index) => (
-              <ListItem button key={text} onClick={() => console.log({text})}> 
+            {['All','Today', 'Month', 'Year'].map(text => (
+              <ListItem button key={text} onClick={() => props.changeParams(text)}> 
       
                 <ListItemIcon>{text === 'All' ? <CalendarTodayIcon /> : 
                                text === 'Today' ? <TodayIcon /> : 
@@ -89,8 +83,8 @@ function LeftPanel() {
           </List>
           <Divider />
           <List>
-            {['Work', 'School', 'Health', 'Personal','Others'].map((text, index) => (
-               <ListItem button key={text} onClick={() => console.log({text})}> 
+            {['Work', 'School', 'Health', 'Personal','Others'].map(text => (
+               <ListItem button key={text} onClick={() => props.changeParams(text)}> 
 
                 <ListItemIcon>{text === 'Work' ? <WorkIcon /> :
                                text === 'School' ? <SchoolIcon /> :
@@ -106,7 +100,7 @@ function LeftPanel() {
           </List>
           <Divider />
          
-          <ListItem button key="Completed Tasks" onClick={() => console.log("Hello")}>
+          <ListItem button key="Completed Tasks" onClick={() => props.changeParams('Completed')}>
                 <ListItemIcon><CheckCircleIcon /></ListItemIcon>
                 <ListItemText primary="Completed Tasks" />
               </ListItem>

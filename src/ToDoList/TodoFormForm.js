@@ -14,7 +14,6 @@ function TodoFormForm(props) {
     props.onClick();
 
   }
-  //console.log(errors);
 
   
   return (
@@ -37,13 +36,13 @@ function TodoFormForm(props) {
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Type of Activity</label>
           <div class="col-sm-7">
-            <select name="activitytype" class="form-control" ref={register}>
+            <select name="activity_type" class="form-control" ref={register}>
             <option value="" disabled selected>Select an activity </option>
             <option value="Work">Work</option>
-            <option value=" School"> School</option>
-            <option value=" Health"> Health</option>
-            <option value=" Personal"> Personal</option>
-            <option value=" Others"> Others</option>
+            <option value="School"> School</option>
+            <option value="Health"> Health</option>
+            <option value="Personal"> Personal</option>
+            <option value="Others"> Others</option>
         </select>
           </div>
         </div>
