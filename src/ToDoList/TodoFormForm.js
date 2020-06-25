@@ -9,6 +9,7 @@ function TodoFormForm(props) {
   const toSubmit = (data, event) => 
   {
     event.preventDefault();
+    console.log(data)
     props.onSubmit(data);
     props.onClick();
 

@@ -25,11 +25,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 //Grouping Icons
-import WorkIcon from '@material-ui/icons/Work';
-import SchoolIcon from '@material-ui/icons/School';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FaceIcon from '@material-ui/icons/Face';
-import PanToolIcon from '@material-ui/icons/PanTool';
+
 
 const drawerWidth = 230 //width of the sideNavBar (change to function)
 

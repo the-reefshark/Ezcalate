@@ -4,8 +4,8 @@ const pool = new Pool({
   user: 'my_user',
   host: 'localhost',
   database: 'my_database',
-  //password: 'root',
-  password: 'Sector37.',
+  password: 'root',
+  // password: 'Sector37.',
   port: 5432,
 });
 
@@ -50,6 +50,7 @@ const updateTodoItem = (body) => {
   return new Promise(function(resolve, reject) {
 
     const { id, task_name, details, completed, activity_type, duedate, dateCompleted } = body
+    console.log(duedate)
 
     pool.query('UPDATE tododata SET task_name = $2, details = $3, completed = $4, activity_type = $5, duedate = $6, dateCompleted = $7 WHERE id = $1 RETURNING *', [id, task_name, details, completed, activity_type, duedate, dateCompleted], 
       (error, results) => {

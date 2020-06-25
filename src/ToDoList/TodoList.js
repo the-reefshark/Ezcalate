@@ -35,7 +35,9 @@ class TodoList extends React.Component {
 
     // Parses the data and updates the state after getTodoList executes
     setTodoList = data => {       
+
         const new_data = JSON.parse(data) 
+
         console.log(new_data["rows"]) // REMOVE
         if (new_data["rows"].length === 0) { // Updated this to use length because it is more accurate
             this.setState({
@@ -72,11 +74,10 @@ class TodoList extends React.Component {
             // console.log(completed_tasks)
 
 
-
+            
 
             this.setState({
                 todos: new_data["rows"],
-                
                 add: ""
             })
         }
@@ -90,7 +91,9 @@ class TodoList extends React.Component {
         let sort_by = 'id' // DELETE THIS LINE when passing in sort_by as param
         fetch(`http://localhost:3001/sorted/${sort_by}`)
             .then(response => { return response.text() })
-            .then(data => { this.setTodoList(data) })
+            .then(data => { 
+                
+                this.setTodoList(data) })
     }
 
     /*
@@ -120,6 +123,7 @@ class TodoList extends React.Component {
             dateCompleted: null
         }
 
+        console.log(newTodo)
         /*
             If there were no items in the todolist create a new array with the given item otherwise
             add the new item to the existing array
@@ -169,6 +173,7 @@ class TodoList extends React.Component {
         })
         .then(response => { return response.json })
         .then(() => {
+            
             this.getTodoList()
         })
     }
@@ -191,10 +196,11 @@ class TodoList extends React.Component {
         if (data.constructor.name === 'SyntheticEvent') {
             // Do Nothing
         } else {
+            console.log(data)
             this.setState(
                 {add: data["TaskName"],
                 details: data["Details"],
-                activity_type: data["activity_type"],
+                activity_type: data["activitytype"],
                 duedate: data["DueDate"],
                 dateCompleted: null
                 }, 
@@ -225,6 +231,7 @@ class TodoList extends React.Component {
         
     // Function that handles when you click the checkbox
     handleCheck = event => {
+        
         let id = parseInt(event.target.id, 10)
         let newTodo
         const updatedTodos = this.state.todos.map(todo => {
@@ -233,14 +240,16 @@ class TodoList extends React.Component {
                 if (todo.dateCompleted === undefined) {
                     todo.dateCompleted = new Date().toISOString().slice(0,10); 
                 }
-                
                 newTodo = todo
             }
+           
             return todo
         })
 
         this.setState({ todos: updatedTodos })
         const { task_name, details, completed, activity_type, duedate, dateCompleted } = newTodo
+
+        
 
         fetch(`http://localhost:3001/tododata/${id}`, {
             method: 'PUT',
@@ -249,6 +258,7 @@ class TodoList extends React.Component {
         })
         .then(response => { return response.json })
         .then(() => {
+            console.log(duedate)
             this.getTodoList()
         })
     }
@@ -292,7 +302,7 @@ class TodoList extends React.Component {
                     // border="solid black"
                 >
 
-                <Box className="todo-list" borderRadius={16} height="auto">
+                <Box className="todo-list" borderRadius={16} >
                     <Box>
                         <p><ToDoFormModal onSubmit = {this.onSubmit} /></p>
                     </Box>
