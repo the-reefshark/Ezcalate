@@ -1,6 +1,5 @@
 import React, {useState} from "react"
 
-import LeftPanel from "./LeftPanel"
 import MidPanel from "./MidPanel"
 import Header from "../Header.js"
 
@@ -53,10 +52,9 @@ function MainPage() {
             bgcolor="transparent"
             order="2"
             >
-                <Box className={classes.midpanel }>
-
-                    <MidPanel />
-                </Box>
+            <Box className={classes.midpanel }>
+                <MidPanel />
+            </Box>
         </Box>
     </Box>
     )

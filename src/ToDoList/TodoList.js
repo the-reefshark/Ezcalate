@@ -1,5 +1,5 @@
 import React from "react"
-import LeftPanel from "../vert_layout/LeftPanel.js"
+import LeftPanel from "./LeftPanel.js"
 import TodoItem from "./TodoItem"
 import ToDoFormModal from "./TodoFormModal"
 import Description from "../vert_layout/RightPanel/Description.js"
@@ -88,7 +88,6 @@ class TodoList extends React.Component {
         Sends fetch request to obtain a list of TodoList items ordered by their index
     */
     getTodoList = () => {
-        console.log("PARAM: " + this.state.sort_by)
         fetch(`http://localhost:3001/sorted/${this.state.sort_by}`)
             .then(response => { return response.text() })
             .then(data => { this.setTodoList(data) })
@@ -225,8 +224,13 @@ class TodoList extends React.Component {
             return todo
         })
 
+        console.log("LOOK HERE")
+        console.log(newTodo)
+
         this.setState({ todos: updatedTodos })
         const { task_name, details, completed, activity_type, duedate, dateCompleted, timer } = newTodo
+
+        console.log(duedate)
 
         fetch(`http://localhost:3001/tododata/${id}`, {
             method: 'PUT',
