@@ -11,6 +11,7 @@ const Editable = ({
     id,
     currentTask,
     currentDetail,
+    currentDate,
     ...props
 }) => {
 
@@ -45,7 +46,7 @@ const handleKeyDown = (event, type) => {
     // Handle when key is pressed
     const Handlefalse = () => { // Added this extra function to simplify things
       setEditing(false)
-      update(id, currentTask, currentDetail)
+      update(id, currentTask, currentDetail, currentDate)
     }
     
 

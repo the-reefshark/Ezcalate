@@ -3,7 +3,6 @@ import LeftPanel from "../vert_layout/LeftPanel.js"
 import TodoItem from "./TodoItem"
 import ToDoFormModal from "./TodoFormModal"
 import Description from "../vert_layout/RightPanel/Description.js"
-import Timer from "../vert_layout/RightPanel/Timer.js"
 
 import Box from '@material-ui/core/Box';
 
@@ -22,7 +21,7 @@ class TodoList extends React.Component {
 
             // Additional states for the Description Panel
             isClicked: false,  // checks whether the Description Panel button was clicked
-            CurrentTime: "0", // the current time on the timer for the current toDoItem
+            CurrentTime: 0, // the current time on the timer for the current toDoItem
             currentDescription: null // todoitem used in the Description Panel
         }
     }
@@ -47,8 +46,8 @@ class TodoList extends React.Component {
 
         const new_data = JSON.parse(data) 
 
-        console.log(new_data["rows"]) // REMOVE
-        if (new_data["rows"].length === 0) { // Updated this to use length because it is more accurate
+
+        if (new_data["rows"].length === 0 ) { // Updated this to use length because it is more accurate
             this.setState({
                 todos: [],
                 completedTodos: [],
@@ -89,7 +88,7 @@ class TodoList extends React.Component {
         Sends fetch request to obtain a list of TodoList items ordered by their index
     */
     getTodoList = () => {
-        console.log("PARAM: " + this.state.sort_by)
+        // console.log("PARAM: " + this.state.sort_by)
         fetch(`http://localhost:3001/sorted/${this.state.sort_by}`)
             .then(response => { return response.text() })
             .then(data => { this.setTodoList(data) })
@@ -107,8 +106,6 @@ class TodoList extends React.Component {
             dateCompleted: null,
             timer: 0 // Doesn't get passed into the database, database sets default of 0
         }
-
-        console.log(newTodo)
         /*
             If there were no items in the todolist create a new array with the given item otherwise
             add the new item to the existing array
@@ -138,7 +135,7 @@ class TodoList extends React.Component {
         })    
     }
 
-    // Updates iternal state and database based on any changes made by the user in the description panel
+    // Updates internal state and database based on any changes made by the user in the description panel
     handleChange = id => {
         let newTodo // Gets assigned the value of the TodoItem that was modified
         const updatedTodos = this.state.todos.map(todo => {
@@ -181,12 +178,11 @@ class TodoList extends React.Component {
         if (data.constructor.name === 'SyntheticEvent') {
             // Do Nothing
         } else {
-            console.log(data)
             this.setState(
                 {add: data["TaskName"],
                 details: data["Details"],
-                activity_type: data["activitytype"],
-                duedate: data["DueDate"],
+                activity_type: data["activity_type"],
+                duedate: data["DueDate"].slice(0,10),
                 dateCompleted: null
                 }, 
                 () => {this.handleAdd()}
@@ -197,7 +193,7 @@ class TodoList extends React.Component {
     onDetails = id => { // Function that handles the "View Description of Task" Button
         // Pulls out the required TodoLitem
         var CurrentToDo = this.state.todos.filter(item => id === item["id"])
-        
+
         // Initially when Description Panel has no todoitem
         if (this.state.currentDescription === null) {
             this.setState({
@@ -216,14 +212,16 @@ class TodoList extends React.Component {
         
     // Function that handles the action of clicking the checkbox
     handleCheck = event => {
-        
         let id = parseInt(event.target.id, 10)
         let newTodo
         const updatedTodos = this.state.todos.map(todo => {
             if (todo.id === id) {
                 todo.completed = !todo.completed
-                if (todo.dateCompleted === undefined) {
-                    todo.dateCompleted = new Date().toISOString().slice(0,10); 
+                if (todo.datecompleted === null) { //Completing a task
+                    todo.datecompleted = new Date().toISOString().slice(0,10); 
+                }
+                else {
+                    todo.datecompleted = null;
                 }
                 newTodo = todo
             }
@@ -243,17 +241,28 @@ class TodoList extends React.Component {
         })
         .then(response => { return response.json })
         .then(() => {
-            console.log(duedate)
             this.getTodoList()
         })
     }
 
     // Function that handles when you edit the Description Panel
-    handleDetails = (id, currentTask, currentDetail) => {
+    handleDetails = (id, currentTask, currentDetail, currentDate) => {
         this.state.todos.map(todo => {
             if (todo.id === id) {
                 todo.task_name = currentTask
                 todo.details = currentDetail
+                todo.duedate = currentDate
+            }
+            return todo
+        })
+        this.handleChange(id);
+    }
+
+
+    handleTimer = (id, CurrentTime) => {
+        this.state.todos.map(todo => {
+            if (todo.id === id) {
+                todo.timer = CurrentTime
             }
             return todo
         })
@@ -266,9 +275,7 @@ class TodoList extends React.Component {
             <TodoItem key={item.id} item={item} handleChange={this.handleChange} handleClick={this.handleClick}
                 onDetails = {this.onDetails} handleCheck = {this.handleCheck}/>
         )
-
-        console.log(todoItems)
-
+        
         return (
             <div>
                 <LeftPanel changeParams = {this.updateFilterParams} />
@@ -277,7 +284,6 @@ class TodoList extends React.Component {
                     display="flex"
                     flexWrap="nowrap"
                     justifyContent="space-between"
-                    // border="solid black"
                 >
 
                 <Box className="todo-list" borderRadius={16} >
@@ -287,8 +293,7 @@ class TodoList extends React.Component {
                     <Box>
                     <div>
                         {todoItems ? (todoItems.length === 0 ? 'Add items using the box above!' :
-                            [<p className ="todo-section1"><b><u>Available Tasks</u></b></p>,
-                            <div className ="todo-header">
+                            [<div key="TodoHeader" className ="todo-header">
                                 <p><b>Due date</b></p> 
                                 <p><b>Task Name</b></p>
                                 </div>,  
@@ -299,16 +304,18 @@ class TodoList extends React.Component {
                     </Box>
                 </Box>
 
-                <Box flexGrow="1"  >
+                <Box flexGrow="1"  display="flex" >
+                    
                     <div className="rightpanel">
                         {this.state.isClicked ?
                         <Description currentDescription = {this.state.currentDescription} handleChange = {this.handleDetails}
-                            isClicked = {this.state.isClicked} />
+                            isClicked = {this.state.isClicked} handleTimer={this.handleTimer} />
                         : null}
                         
                         {/* <Timer CurrentTime={this.state.CurrentTime}/> */}
                     </div>
-                </Box>
+                    </Box>
+                
             </Box>
         </div>
         )

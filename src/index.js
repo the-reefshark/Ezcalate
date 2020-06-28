@@ -6,9 +6,11 @@ import * as serviceWorker from './serviceWorker';
 import { Auth0Provider } from './context/auth0-context';
 
 ReactDOM.render(
-  <Auth0Provider>
-    <App />
-  </Auth0Provider>,
+  <React.Fragment>
+    <Auth0Provider>
+      <App />
+    </Auth0Provider>
+  </React.Fragment>,
   document.getElementById('root')
 );
 

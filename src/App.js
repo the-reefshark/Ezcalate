@@ -8,11 +8,9 @@ import React from 'react';
 // import TodoFormForm from "./ToDoList/TodoFormForm"
 
 //Imports for vert layout
-import Header from "./Header"
 import MainPage from "./vert_layout/MainPage"
 import { makeStyles } from '@material-ui/core/styles';
-import CardMedia from '@material-ui/core/CardMedia';
-import Paper from '@material-ui/core/Paper';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -79,12 +77,12 @@ function App() {
 
 
   return (
-    <body >
+    
       <div className={classes.main}>
           <MainPage/>
       </div>
       
-    </body>
+   
   )
 }
 

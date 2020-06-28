@@ -1,12 +1,10 @@
 import React, {useState} from "react"
 
-import LeftPanel from "./LeftPanel"
 import MidPanel from "./MidPanel"
 import Header from "../Header.js"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import { boxSizing } from "@material-ui/system";
 
 const useStyles = makeStyles((theme) => ({
     midpanel:{

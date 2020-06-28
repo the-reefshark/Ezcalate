@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "left",
       display: "block",
       width: "100%",
+      textTransform: "none"
     },
 }));
 
@@ -28,7 +29,7 @@ function ToDoItem(props){
     }
 
     const classes = useStyles();
-
+    
     return(
         <Box
             display="flex"
@@ -36,7 +37,7 @@ function ToDoItem(props){
             justifyContent="flex-start"
             alignItems="center"
         >
-            <Box order="1" flexGrow="1" flexFlow="row nowrap" whiteSpace="nowrap" justifyContent="center">
+            <Box order="1" flexGrow="1"  whiteSpace="nowrap" justifyContent="center">
                 <p className="date" style={props.item.completed ? completedStyle : null}>{"  " + (props.item.duedate).slice(0,10)}</p>
             </Box>
 
@@ -44,14 +45,14 @@ function ToDoItem(props){
                 <Checkbox
                     className ="checkbox"
                     type="checkbox"
-                    id={props.item.id}
+                    id={props.item.id.toString()}
                     checked={props.item.completed}
                     onChange={props.handleCheck}
                 />
             </Box>
 
             <Box order="3" flexGrow="14" >
-                <Button className={classes.root} onClick={() => props.onDetails(props.item.id)}>
+                <Button className={classes.root} onClick={() => props.onDetails(props.item.id)}  >
                     <p style={props.item.completed ? completedStyle : null}>{props.item.task_name}</p>
                 </Button>
             </Box>

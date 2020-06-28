@@ -4,7 +4,7 @@ CREATE TABLE tododata (
     details VARCHAR,
     completed BOOLEAN,
     activity_type VARCHAR, 
-    duedate DATE,
-    dateCompleted DATE,
+    duedate VARCHAR,
+    dateCompleted VARCHAR,
     timer INTEGER
 )
