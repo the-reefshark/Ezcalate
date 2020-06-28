@@ -1,7 +1,5 @@
-import React, {useRef, useState} from "react"
-import Editable from "./Editable";
+import React, {useState} from "react"
 import Tododetails from "./Description"
-import Timer from "./Timer"
 
 function RightPanel() {
 

@@ -1,23 +1,37 @@
 import React, { useState, useEffect } from 'react';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
+import ReplayIcon from '@material-ui/icons/Replay';
+import IconButton from '@material-ui/core/IconButton';
+
 import "./timer.css"
 
-// function that changes single digits to double digits
-function n(n){
-  return n > 9 ? "" + n: "0" + n;
-}
 
+// For now, our timer does not allow user to run while in the background
+// Timer must be open
 
 const Timer = props => {
-  const [seconds, setSeconds] = useState(0);
+  
+  const [seconds, setSeconds] = useState( ()=>{
+    console.log(typeof(props.CurrentTime))
+    return props.CurrentTime;
+  });
+
   const [isActive, setIsActive] = useState(false);
 
   function toggle() {
     setIsActive(!isActive);
+    
+    if (isActive === true) { // initially false
+        return props.handleTimer(props.currentID, seconds)
+    }
   }
 
   function reset() {
     setSeconds(0);
     setIsActive(false);
+
+    return props.handleTimer(props.currentID, 0)
   }
 
   useEffect(() => {
@@ -32,18 +46,39 @@ const Timer = props => {
     return () => clearInterval(interval);
   }, [isActive, seconds]);
 
+
+  // function that changes single digits to double digits
+  function converter(n){
+    return n > 9 ? "" + n: "0" + n;
+  }
+
+  //Display of timer
+  var current_seconds = seconds
+  var display_hours = converter(Math.floor(current_seconds / 3600))
+  current_seconds %= 3600;
+  var display_minutes = converter(Math.floor(current_seconds / 60));
+  var display_seconds = converter(current_seconds % 60);
+
+  
+
+
   return (
     <div className="app">
       <div className="time">
-        {seconds}s
+        {display_hours}:{display_minutes}:{display_seconds}
       </div>
       <div className="row">
-        <button className={`button button-primary button-primary-${isActive ? 'active' : 'inactive'}`} onClick={toggle}>
-          {isActive ? 'Pause' : 'Start'}
-        </button>
-        <button className="button" onClick={reset}>
-          Reset
-        </button>
+        <IconButton onClick={toggle}>
+          {isActive ? <PauseCircleOutlineIcon/> : <PlayCircleOutlineIcon/>}
+        </IconButton>
+
+        {/* <IconButton onClick={toggle}>
+          <CheckCircleOutlineIcon/>
+        </IconButton> */}
+
+        <IconButton className="button" onClick={reset}>
+          <ReplayIcon/>
+        </IconButton>
       </div>
     </div>
   );

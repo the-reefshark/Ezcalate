@@ -1,7 +1,7 @@
 /* This is the original code for Expansion Drawer*/
 
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
 function LeftPanel(props) {
 
     const classes = useStyles();
-    const theme = useTheme();
 
     return (
         <div className={classes.root}>

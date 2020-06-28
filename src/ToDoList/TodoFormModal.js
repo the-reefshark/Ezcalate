@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal' 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TodoFormForm from "./TodoFormForm"
-import TodoList from "./TodoList"
 
 
 function MyVerticallyCenteredModal(props) {
@@ -20,10 +19,9 @@ function MyVerticallyCenteredModal(props) {
             Add Task
           </Modal.Title>
         </Modal.Header>
+        
         <Modal.Body>
-          <p>
             <TodoFormForm onSubmit={props.onSubmit} onClick={props.onHide} />
-          </p>
         </Modal.Body>
       </Modal>
     );

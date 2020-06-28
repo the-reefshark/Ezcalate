@@ -140,17 +140,18 @@ body{
 .todo-list {
     width: 60.0%;
     float: left;
-    height: 500px;
+    min-height: 500px;
     margin-top: 10px;
     padding-top: 25px;
     text-align: center;
     background-color: rgba(255,255,255, 0.9);
+    height: auto;
  }
 
 .rightpanel {
     width: 100%;
     float: left;
-    height: 80%;
+    height: 100%;
     margin-left: 35px;
     text-align: center;
     

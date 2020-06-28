@@ -1,14 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form'
-import ToDoList from './TodoList'
-import ToDoFormModal from "./TodoFormModal"
+
 
 function TodoFormForm(props) {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   
   const toSubmit = (data, event) => 
   {
     event.preventDefault();
+    console.log(data)
     props.onSubmit(data);
     props.onClick();
 
@@ -18,25 +18,25 @@ function TodoFormForm(props) {
   return (
     <form onSubmit={handleSubmit(toSubmit)} >
       <div>
-      <div class="form-group row"> 
-        <label class="col-sm-2 col-form-label">Task Name</label>
-          <div class="col-sm-7">
-            <input type="text" name="TaskName" class="form-control" placeholder="Enter Task here!" ref={register}/>
+        <div className="form-group row"> 
+          <label className="col-sm-2 col-form-label">Task Name</label>
+            <div className="col-sm-7">
+              <input type="text" name="TaskName" className="form-control" placeholder="Enter Task here!" ref={register}/>
+            </div>
+        </div>
+
+    <div className="form-group row" >
+        <label className="col-sm-2 col-form-label">Details</label>
+          <div className="col-sm-7">
+          <input type="text" name= "Details" className="form-control" placeholder="Enter details here!" ref={register}/>
           </div>
     </div>
 
-    <div class="form-group row" >
-        <label class="col-sm-2 col-form-label">Details</label>
-          <div class="col-sm-7">
-          <input type="text" name= "Details" class="form-control" placeholder="Enter details here!" ref={register}/>
-          </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Type of Activity</label>
-          <div class="col-sm-7">
-            <select name="activity_type" class="form-control" ref={register}>
-            <option value="" disabled selected>Select an activity </option>
+    <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Type of Activity</label>
+          <div className="col-sm-7">
+            <select name="activity_type" defaultValue="Choose-origin" className="form-control" ref={register}>
+            <option value="Choose-origin" disabled>Select an activity </option>
             <option value="Work">Work</option>
             <option value="School"> School</option>
             <option value="Health"> Health</option>
@@ -46,9 +46,9 @@ function TodoFormForm(props) {
           </div>
         </div>
 
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Due Date</label>
-          <div class="col-sm-7">
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Due Date</label>
+          <div className="col-sm-7">
             <input type="datetime-local" placeholder="Due Date" name="DueDate" ref={register} />
           </div>
         </div>
