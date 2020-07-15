@@ -1,8 +1,8 @@
 import React from "react"
-import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal' 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TodoFormForm from "./TodoFormForm"
+import IconButton from '@material-ui/core/IconButton';
 
 
 function MyVerticallyCenteredModal(props) {
@@ -32,9 +32,9 @@ function MyVerticallyCenteredModal(props) {
 
     return (
       <>
-        <Button variant="primary" onClick={() => setModalShow(true)}>
-          Add Task!
-        </Button>
+        <IconButton  onClick={() => setModalShow(true)}>
+          Add Task!  
+        </IconButton>
   
         <MyVerticallyCenteredModal 
           onSubmit= {props.onSubmit}
