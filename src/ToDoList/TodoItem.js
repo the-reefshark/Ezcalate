@@ -37,7 +37,7 @@ function ToDoItem(props){
             justifyContent="flex-start"
             alignItems="center"
         >
-            <Box order="1" flexGrow="1"  whiteSpace="nowrap" justifyContent="center">
+            <Box order="1" flexGrow="1"  whiteSpace="nowrap" justifyContent="center" flexBasis="5em">
                 <p className="date" style={props.item.completed ? completedStyle : null}>{"  " + (props.item.duedate).slice(0,10)}</p>
             </Box>
 
@@ -57,7 +57,7 @@ function ToDoItem(props){
                 </Button>
             </Box>
 
-            <Box order="4">
+            <Box order="4" paddingRight="10px">
                 <IconButton className = "delete" onClick={() => props.handleClick(props.item.id)}> 
                     <HighlightOffIcon />
                 </IconButton>  

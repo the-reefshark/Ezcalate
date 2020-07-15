@@ -1,32 +1,53 @@
 
-
-// import ToDoList from "./ToDoList/TodoList"
 import "./App.css"
 import React from 'react';
-// import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
-// import { useAuth0 } from './context/auth0-context';
-// import TodoFormForm from "./ToDoList/TodoFormForm"
-
-//Imports for vert layout
-import MainPage from "./vert_layout/MainPage"
 import { makeStyles } from '@material-ui/core/styles';
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
+import { useAuth0 } from './context/auth0-context';
+
+// Background Images (change as necessary)
+import ToDoImage from "./Background Images/coffeeshop1.jpg"
+import LoginImage from "./Background Images/CoffeeLogin2.jpg"
+
+
+//Relevant Components to be rendered
+import MainPage from "./vert_layout/MainPage"
+import Header from "./Header"
+import HomePage from "./HomePage/HomePage.js"
 
 
 
 const useStyles = makeStyles((theme) => ({
   
-  main: {
-    // backgroundImage: Image,
-    // height: "100%",
-    // backgroundposition: "center",
-    // backgroundrepeat: "no-repeat",
-    // backgroundsize: "cover"
-  }
-
+  //Styles for the HomePage & ToDolist Page -> simply change the backgroundImage to change
+  loginpage: {
+    backgroundImage: `url(${LoginImage})`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    width: '100vw',
+    height: '100vh',
+    paddingTop: "100px",
+    display:"flex",
+    flexFlow:"column",
+    justifyContent:"space-between"
+  },
+  todolist_page: {
+      backgroundImage: `url(${ToDoImage})`,
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundAttachment: "fixed",
+      backgroundSize: "cover",
+      width: '100vw',
+      height: '100vh'
+  
+  }, 
+  
 }));
 
 function App() {
-  //const { isLoading, user, loginWithRedirect, logout } = useAuth0();
+  const { isLoading, user, loginWithRedirect, logout } = useAuth0();
 
   // return (
   //   <>
@@ -77,13 +98,41 @@ function App() {
 
 
   return (
-    
-      <div className={classes.main}>
+    <>
+        <Header 
+          user={user} 
+          isLoading={isLoading}
+          loginWithRedirect={loginWithRedirect}
+          logout={() => logout({ returnTo: window.location.origin })}/>
+
+        {/* Home Page */}
+        <div className={classes.loginpage}>
+          <HomePage/>
+        </div>
+
+        {/* <div className={classes.todolist_page}>
           <MainPage/>
-      </div>
+        </div>  */}
+
+    </>
       
-   
   )
 }
 
 export default App;
+
+
+    
+
+      
+  // <div>
+      //   <Header/>
+      //   <div className={classes.loginpage} >
+      //      <LoginPage/>
+      //   </div>
+      // </div>
+ 
+      // <div>
+      //   <Header/>
+      
+      //  </div>

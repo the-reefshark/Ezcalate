@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "dimgrey",
+    color: "white"
+
   },
   drawerContainer: {
     overflow: 'auto',
@@ -44,6 +47,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  iconcolor: {
+    fill: "white",
+  },
+  dividercolor: {
+    backgroundColor: "darkgrey"
+  }
   }));
 
 function LeftPanel(props) {
@@ -62,14 +71,14 @@ function LeftPanel(props) {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          <List>
+          <List >
             {['All','Today', 'Month', 'Year'].map(text => (
               <ListItem button key={text} onClick={() => props.changeParams(text)}> 
       
-                <ListItemIcon>{text === 'All' ? <CalendarTodayIcon /> : 
-                               text === 'Today' ? <TodayIcon /> : 
-                               text === 'Month' ? <EventNoteIcon /> :
-                             /*text === 'year'*/ <DateRangeIcon />
+                <ListItemIcon >{text === 'All' ? <CalendarTodayIcon className={classes.iconcolor}/> : 
+                               text === 'Today' ? <TodayIcon className={classes.iconcolor}/> : 
+                               text === 'Month' ? <EventNoteIcon className={classes.iconcolor}/> :
+                             /*text === 'year'*/ <DateRangeIcon className={classes.iconcolor}/>
                               }
                 </ListItemIcon>
 
@@ -77,16 +86,16 @@ function LeftPanel(props) {
               </ListItem>
             ))}
           </List>
-          <Divider />
+          <Divider className={classes.dividercolor}/>
           <List>
             {['Work', 'School', 'Health', 'Personal','Others'].map(text => (
                <ListItem button key={text} onClick={() => props.changeParams(text)}> 
 
-                <ListItemIcon>{text === 'Work' ? <WorkIcon /> :
-                               text === 'School' ? <SchoolIcon /> :
-                               text === 'Health' ? <FavoriteIcon /> :
-                               text === 'Personal' ? <PersonIcon /> :
-                             /*text === 'Others'*/ <InboxIcon /> 
+                <ListItemIcon>{text === 'Work' ? <WorkIcon className={classes.iconcolor}/> :
+                               text === 'School' ? <SchoolIcon className={classes.iconcolor}/> :
+                               text === 'Health' ? <FavoriteIcon className={classes.iconcolor}/> :
+                               text === 'Personal' ? <PersonIcon className={classes.iconcolor}/> :
+                             /*text === 'Others'*/ <InboxIcon className={classes.iconcolor}/> 
                               }
                 </ListItemIcon>
 
@@ -94,10 +103,10 @@ function LeftPanel(props) {
               </ListItem>
             ))}
           </List>
-          <Divider />
+          <Divider className={classes.dividercolor}/>
          
           <ListItem button key="Completed Tasks" onClick={() => props.changeParams('Completed')}>
-                <ListItemIcon><CheckCircleIcon /></ListItemIcon>
+                <ListItemIcon><CheckCircleIcon className={classes.iconcolor}/></ListItemIcon>
                 <ListItemText primary="Completed Tasks" />
               </ListItem>
         </div>

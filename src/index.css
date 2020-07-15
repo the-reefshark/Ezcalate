@@ -1,17 +1,18 @@
  html, body {
-  width: 100%;
+  /* width: 100%;
   height: 100%;
-  float: left;
+  float: left; */
 }
 
 body{
-    background-image: url('./Background Images/coffeeshop1.jpg');
+    /* background-image: url('./Background Images/coffeeshop1.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover;
+    background-size: cover; */
 
-    overflow-x:hidden;  /*Prevents scrollbar from appearing during slide-in animation*/
+    overflow-x:hidden;  /*Prevents scrollbar from appearing during slide-in animation */
+    overflow-y:hidden;
 }
 
 
@@ -138,20 +139,23 @@ body{
 
 /*These two are necessary because ToDoList is still a class component*/
 .todo-list {
-    width: 60.0%;
+    width: 55.0%;
     float: left;
-    min-height: 500px;
-    margin-top: 10px;
+    min-height: 520px;
+    margin-top: 125px;
+    margin-left: 250px;
     padding-top: 25px;
     text-align: center;
-    background-color: rgba(255,255,255, 0.9);
+    background-color: rgba(255,255,255, 0.95);
     height: auto;
  }
+
 
 .rightpanel {
     width: 100%;
     float: left;
     height: 100%;
+    margin-top: 100px;
     margin-left: 35px;
     text-align: center;
     

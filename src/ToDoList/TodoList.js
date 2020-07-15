@@ -282,12 +282,12 @@ class TodoList extends React.Component {
                 <Box
                     display="flex"
                     flexWrap="nowrap"
-                    justifyContent="space-between"
+                    // justifyContent="space-between"
                 >
 
                 <Box className="todo-list" borderRadius={16} >
                     <Box>
-                        <p><ToDoFormModal onSubmit = {this.onSubmit} /></p>
+                        <p><ToDoFormModal onSubmit = {this.onSubmit}/></p>
                     </Box>
                     <Box>
                     <div>
@@ -303,7 +303,7 @@ class TodoList extends React.Component {
                     </Box>
                 </Box>
 
-                <Box flexGrow="1"  display="flex" >
+                <Box flexGrow="2"  display="flex" >
                     
                     <div className="rightpanel">
                         {this.state.isClicked ?
