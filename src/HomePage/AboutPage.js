@@ -29,7 +29,7 @@ function AboutPage() {
     return (
         <>
         <Box className= {classes.content} >
-                <AboutPage/> 
+            <AboutContent /> 
         </Box> 
 
 
@@ -38,7 +38,7 @@ function AboutPage() {
         <Box className={classes.footer}>
             * INSERT CONTENT HERE *
             <GitHubIcon/>
-            <Typography> Team Ezcalate 2020</Typography>
+            <Typography> Team Ezcalate 2020 </Typography>
             
         </Box> */}
         </>

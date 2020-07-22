@@ -1,18 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Logo from "./Background Images/Ezcalate_logo.png"
+import React, {useState, useEffect} from 'react'
+import { Link } from 'react-router-dom'
 
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
+import { makeStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import Box from '@material-ui/core/Box'
+import Avatar from '@material-ui/core/Avatar'
+import Logo from "./Background Images/Ezcalate_logo.png"
+import Button from '@material-ui/core/Button'
+import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/Menuitem'
-import Fade from '@material-ui/core/Fade';
+import Fade from '@material-ui/core/Fade'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -93,15 +94,15 @@ export default function MenuAppBar(props) {
         > 
         
         {/* For the main Logo */}
-            <Box alignItems="center"> 
-              <Button onClick={()=>{/* INSERT FUNCTION*/}}>
-                  <Box display="inline"> <Avatar src={Logo}/> </Box>
-                  <Box display="inline" paddingLeft="15px"> 
-                      <Typography variant="h6" className={classes.title}>
-                          Ezcalate
-                      </Typography>
-                     </Box> 
-                </Button>
+            <Box alignItems="center">
+              <Link to="/"> 
+                <Box display="inline"> <Avatar src={Logo}/> </Box>
+                <Box display="inline" paddingLeft="15px"> 
+                  <Typography variant="h6" className={classes.title}>
+                    Ezcalate
+                  </Typography>
+                </Box>
+              </Link>
             </Box>
         {/* For the Navigational Links */}
             <Box 
@@ -110,36 +111,31 @@ export default function MenuAppBar(props) {
               paddingTop="15px"
               alignItems="flex-end"
               justifyContent="space-around">
+                <Link to="/about">
+                  <Box>
+                    <Typography className={classes.button_unlock}>About Us</Typography>
+                  </Box>
+                </Link>
 
                 <Box>
-                  <Button onClick={()=>{/* INSERT FUNCTION*/}}>
-                    <Typography className={classes.button_unlock}>About Us</Typography>
-                  </Button>
-                </Box>
-
-                 <Box>
-                 {Loggedin 
-                  ? <Button onClick={()=>{/* INSERT FUNCTION*/}}>
+                  {Loggedin 
+                  ? <Link to="/todolist">
                       <Typography className={classes.button_unlock}>To Do List</Typography>
-                      </Button>
+                    </Link>
 
-                  : <Button onClick={()=>{/* INSERT FUNCTION*/}}>
-                      <Typography className={classes.button_lock}>To Do List</Typography>
-                      </Button>
+                  : <Typography className={classes.button_lock}>To Do List</Typography>
                   }
                 </Box>
 
                 <Box>
                   {Loggedin 
-                  ? <Button onClick={()=>{/* INSERT FUNCTION*/}}>
+                  ? <Link to="/visualiser">
                       <Typography className={classes.button_unlock}>Data Visualisation</Typography>
-                      </Button>
+                    </Link>
 
-                  : <Button onClick={()=>{/* INSERT FUNCTION*/}}>
-                      <Typography className={classes.button_lock}>Data Visualisation</Typography>
-                      </Button>
+                  : <Typography className={classes.button_lock}>Data Visualisation</Typography>
                   }
-                  </Box>
+                </Box>
               
             </Box>
 
@@ -196,7 +192,6 @@ export default function MenuAppBar(props) {
                  
                   </>
                   }
-
               </Box>
           </Box> 
         </Toolbar>
