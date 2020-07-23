@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 
 import TableItem from './TableItem'
 
-function MainVisualiser() {
-    const [todos, setTodos] = useState(null)
-    const [sort_by, setSortby] = useState("All")
-    const [tableItems, setTableItems] = useState(null)
+function MainVisualiser(props) {
+    const [todos, setTodos] = useState(() => { return null})
+    const [sort_by, setSortby] = useState(() => { return"All" })
+    const [tableItems, setTableItems] = useState(() => { return null})
 
     useEffect(() => {
         getTodoList()
@@ -18,7 +18,8 @@ function MainVisualiser() {
 
     // Sends fetch request to obtain a list of TodoList items ordered by given param
     function getTodoList() {
-        fetch(`http://localhost:3001/sorted/${sort_by}`)
+        console.log("RUNNING")
+        return fetch(`http://localhost:3001/sorted/${props.user["nickname"]}/${sort_by}`)
             .then(response => { return response.text() })
             .then(data => setTodoList(data))
     }
@@ -40,14 +41,30 @@ function MainVisualiser() {
     }
 
     return(
-        tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
-        [<div key="TodoHeader" className ="todo-header">
-            <p><b>Time</b></p> 
-            <p><b>Task Name</b></p>
-            </div>,  
-            tableItems]
-        ) :
-        'Cannot connect to server!'
+        // <div>
+        //     {tableItems.length === 0 ? 'No tasks to display' :
+        //     (<div key="TodoHeader" className ="todo-header">
+        //         <p><b>Time</b></p> 
+        //         <p><b>Task Name</b></p>
+        //         </div>,  
+        //         tableItems)
+        //     }
+        // </div>
+        <div>
+            <hr />
+            <hr />
+            <hr />
+            <hr />
+            <hr />
+            {tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
+            [<div key="TableHeader" className ="table-header">
+                <p><b>Time</b></p> 
+                <p><b>Task Name</b></p>
+                </div>,  
+                tableItems]
+            ) :
+            'Cannot connect to server!'}
+        </div>
     )
 }
 
