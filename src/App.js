@@ -22,8 +22,7 @@ function App() {
       <>
         <Router>
             <Header 
-              user={user} 
-              // isLoading={isLoading}
+              user={user}
               loginWithRedirect={loginWithRedirect}
               logout={() => logout({ returnTo: window.location.origin })}
             />
