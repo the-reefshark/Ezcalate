@@ -196,6 +196,5 @@ export default function MenuAppBar(props) {
           </Box> 
         </Toolbar>
       </AppBar>
-
   );
 }

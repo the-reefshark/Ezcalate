@@ -12,8 +12,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/sorted/:sort_by', (req, res) => {
-  todolist_model.getTodolist(req.params.sort_by)
+app.get('/sorted/:username/:sort_by', (req, res) => {
+  todolist_model.getTodolist(req.params.username, req.params.sort_by)
   .then(response => {
     res.status(200).send(response);
   })
@@ -52,8 +52,8 @@ app.post('/tododata', (req, res) => {
   })
 })
 
-app.delete('/tododata/:id', (req, res) => {
-  todolist_model.deleteTodoItem(req.params.id)
+app.delete('/tododata/:username/:id', (req, res) => {
+  todolist_model.deleteTodoItem(req.params.username, req.params.id)
   .then(response => {
     res.status(200).send(response);
   })

@@ -24,12 +24,10 @@ function App() {
           />
 
           <Switch>
-            <Route path="/" exact render={(props) => <HomePage {...props} 
-              loginWithRedirect={loginWithRedirect} /> } 
-            />
+            <Route path="/" exact render={(props) => <HomePage {...props} loginWithRedirect={loginWithRedirect} /> } />
             <Route path="/about" component={ AboutPage } />
-            <Route path="/todolist" component={ MainPage } />
-            <Route path="/visualiser" component={ MainVisualiser } />
+            <Route path="/todolist" render={(props) => <MainPage {...props} user={user} /> } />
+            <Route path="/visualiser" render={(props) => <MainVisualiser {...props} user={user} /> } />
           </Switch>
       </Router>
     </>

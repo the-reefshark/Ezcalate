@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function MainPage() {
+function MainPage(props) {
 
     const classes = useStyles();
 
     return (
         <div className={classes.todolist_page}>
             <Box className={classes.midpanel} >
-                <MidPanel />
+                <MidPanel user={ props.user }/>
             </Box>
         </div>
     )
