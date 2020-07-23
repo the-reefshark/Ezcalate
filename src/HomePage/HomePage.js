@@ -4,7 +4,25 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
+// Background Image (change as necessary)
+import LoginImage from "../Background Images/CoffeeLogin2.jpg"
+import { getThemeProps } from "@material-ui/styles"
+
 const useStyles = makeStyles((theme) => ({
+    loginpage: {
+        backgroundImage: `url(${LoginImage})`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        backgroundSize: "cover",
+        width: '100vw',
+        height: '100vh',
+        paddingTop: "100px",
+        display:"flex",
+        flexFlow:"column",
+        justifyContent:"space-between"
+    },
+
     content: {
        color: "white",
        paddingLeft: "5%",
@@ -43,33 +61,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function HomePage() {
+function HomePage(props) {
 
     const classes = useStyles();
 
     return (
-        <>
-        <Box display="flex" height="100%">
+        <div className={classes.loginpage}>
+            <Box display="flex" height="100%">
                 <Box className={classes.content} width="70%" flexGrow="1">
                     <Typography className={classes.main}> Are you wasting your life? </Typography>
                     <Typography className={classes.main}> Stay productive with us! </Typography>
                     <Typography className={classes.words}>Millions of people have already joined us! What are you waiting for?</Typography>
-                    <Button className={classes.button} onClick={()=>{/* INSERT FUNCTION */}}>
+                    <Button className={classes.button} onClick={props.loginWithRedirect}>
                         Get Started - It's Free!
-                        </Button>
+                    </Button>
                 </Box>
-                
-        </Box> 
+            </Box>
 
-        {/* If you want a footer (remember to adjust Height above!)
-        
-        <Box className={classes.footer}>
-            * INSERT CONTENT HERE *
-            <GitHubIcon/>
-            <Typography> Team Ezcalate 2020</Typography>
+            {/* If you want a footer (remember to adjust Height above!)
             
-        </Box> */}
-        </>
+            <Box className={classes.footer}>
+                * INSERT CONTENT HERE *
+                <GitHubIcon/>
+                <Typography> Team Ezcalate 2020</Typography>
+                
+            </Box> */}
+        </div>
     )
 }
 

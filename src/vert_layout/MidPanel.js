@@ -1,9 +1,9 @@
 import React from "react"
 import TodoList from "../ToDoList/TodoList.js"
 
-function MidPanel() {
+function MidPanel(props) {
     return (
-        <TodoList />
+        <TodoList user={ props.user }/>
     )
 }
 

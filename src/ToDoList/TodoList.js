@@ -5,6 +5,7 @@ import ToDoFormModal from "./TodoFormModal"
 import Description from "../vert_layout/RightPanel/Description.js"
 
 import Box from '@material-ui/core/Box';
+import { wait } from "@testing-library/react"
 
 class TodoList extends React.Component {
     constructor() {
@@ -43,9 +44,11 @@ class TodoList extends React.Component {
 
     // Parses the data and updates the state after getTodoList executes
     setTodoList = data => {       
-
-        const new_data = JSON.parse(data) 
-
+        const new_data = JSON.parse(data)
+        
+        if(new_data["name"] === "error") { // Refresh page if data is null to initiate a re-render
+            window.location.reload()
+        }
 
         if (new_data["rows"].length === 0 ) { // Updated this to use length because it is more accurate
             this.setState({
@@ -88,7 +91,7 @@ class TodoList extends React.Component {
         Sends fetch request to obtain a list of TodoList items ordered by their index
     */
     getTodoList = () => {
-        fetch(`http://localhost:3001/sorted/${this.state.sort_by}`)
+        fetch(`http://localhost:3001/sorted/${this.props.user["nickname"]}/${this.state.sort_by}`)
             .then(response => { return response.text() })
             .then(data => { this.setTodoList(data) })
     }
@@ -122,16 +125,15 @@ class TodoList extends React.Component {
         })
 
         const { task_name, details, activity_type, completed, duedate, dateCompleted } = newTodo
+        const username = this.props.user["nickname"]
 
-        fetch('http://localhost:3001/tododata', {
+        fetch('http://localhost:3001/tododata/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ task_name, details, completed, activity_type, duedate, dateCompleted })
+            body: JSON.stringify({ username, task_name, details, completed, activity_type, duedate, dateCompleted })
         })
         .then(response => { return response.json })
-        .then(data => {
-            this.getTodoList()
-        })    
+        .then(data => { this.getTodoList() })    
     }
 
     // Updates internal state and database based on any changes made by the user in the description panel
@@ -146,17 +148,15 @@ class TodoList extends React.Component {
 
         this.setState({ todos: updatedTodos })
         const { task_name, details, completed, activity_type, duedate, dateCompleted, timer } = newTodo
+        const username = this.props.user["nickname"]
 
         fetch(`http://localhost:3001/tododata/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, task_name, details, completed, activity_type, duedate, dateCompleted, timer })
+            body: JSON.stringify({ username, id, task_name, details, completed, activity_type, duedate, dateCompleted, timer })
         })
         .then(response => { return response.json })
-        .then(() => {
-            
-            this.getTodoList()
-        })
+        .then(() => { this.getTodoList() })
     }
 
     // Removes the TodoItem with the given id from internal state and database
@@ -164,12 +164,10 @@ class TodoList extends React.Component {
         const updatedTodos = this.state.todos.filter(todo => todo.id !== id)
         this.setState({ todos: updatedTodos })
 
-        fetch(`http://localhost:3001/tododata/${id}`, {
+        fetch(`http://localhost:3001/tododata/${this.props.user["nickname"]}/${id}`, {
             method: 'DELETE' })
         .then(response => { return response.json })
-        .then(() => {
-            this.getTodoList()
-        })
+        .then(() => { this.getTodoList() })
     }
 
     // Function that handles the "submit button" in the AddTask form
@@ -230,13 +228,12 @@ class TodoList extends React.Component {
 
         this.setState({ todos: updatedTodos })
         const { task_name, details, completed, activity_type, duedate, dateCompleted, timer } = newTodo
-
-        
+        const username = this.props.user["nickname"]
 
         fetch(`http://localhost:3001/tododata/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, task_name, details, completed, activity_type, duedate, dateCompleted, timer })
+            body: JSON.stringify({ username, id, task_name, details, completed, activity_type, duedate, dateCompleted, timer })
         })
         .then(response => { return response.json })
         .then(() => {
@@ -313,8 +310,7 @@ class TodoList extends React.Component {
                         
                         {/* <Timer CurrentTime={this.state.CurrentTime}/> */}
                     </div>
-                    </Box>
-                
+                </Box>
             </Box>
         </div>
         )
