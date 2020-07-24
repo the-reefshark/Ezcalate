@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import TableItem from './TableItem'
 
-function MainVisualiser() {
+function MainVisualiser(props) {
     const [todos, setTodos] = useState(null)
     const [sort_by, setSortby] = useState("All")
     const [tableItems, setTableItems] = useState(null)
@@ -40,14 +40,16 @@ function MainVisualiser() {
     }
 
     return(
-        tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
+        <div>
+        {tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
         [<div key="TodoHeader" className ="todo-header">
             <p><b>Time</b></p> 
             <p><b>Task Name</b></p>
             </div>,  
             tableItems]
         ) :
-        'Cannot connect to server!'
+        'Cannot connect to server!'}
+        </div>
     )
 }
 

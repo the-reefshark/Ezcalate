@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
         paddingTop:"25px",
         minHeight:"100%",
         fontSize:"20px",
+        
     },
  
 }));
@@ -27,6 +28,7 @@ const classes = useStyles();
                 borderRadius={8}
                 textAlign="left"
                 overflow="auto"
+                marginTop="10px"
                 >
             <div className= {classes.content}>
             <h3> About our app </h3>

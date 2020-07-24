@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     background: "black",
     position: "fixed",
     paddingBottom: "15px",
+    paddingTop: "15px",
     // 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
     zIndex: theme.zIndex.drawer + 1 // trying to make header [pop out]
   },
@@ -94,16 +95,18 @@ export default function MenuAppBar(props) {
         > 
         
         {/* For the main Logo */}
-            <Box alignItems="center">
-              <Link to="/"> 
+        <Box >
+        <Link to="/"> 
+            <Box alignItems="center" display="flex" >
                 <Box display="inline"> <Avatar src={Logo}/> </Box>
-                <Box display="inline" paddingLeft="15px"> 
+                <Box display="inline" paddingLeft="15px" > 
                   <Typography variant="h6" className={classes.title}>
                     Ezcalate
                   </Typography>
                 </Box>
-              </Link>
             </Box>
+          </Link>
+          </Box>
         {/* For the Navigational Links */}
             <Box 
               display="flex"
