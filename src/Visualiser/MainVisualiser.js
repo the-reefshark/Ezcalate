@@ -25,7 +25,7 @@ function MainVisualiser(props) {
 
     // Parses the data and updates the state after getTodoList executes
     function setTodoList(data) {
-        const new_data = JSON.parse(data)["rows"]
+        const new_data = JSON.parse(data)[1]["rows"]
 
         setTableItems(new_data.length === 0 ? null : new_data.map(item =>
             <TableItem key={item.id} item={item} />
