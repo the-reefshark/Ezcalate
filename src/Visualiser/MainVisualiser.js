@@ -4,7 +4,7 @@ import TableItem from './TableItem'
 
 function MainVisualiser(props) {
     const [sort_by, setSortby] = useState(()=> {return "All"})
-    const [tableItems, setTableItems] = useState(()=> {return null })
+    const [tableItems, setTableItems] = useState(()=> {return null})
 
     useEffect(() => {
         getTodoList()

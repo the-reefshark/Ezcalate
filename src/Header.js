@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     background: "black",
     position: "fixed",
     paddingBottom: "15px",
+    paddingTop: "15px",
     // 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
     zIndex: theme.zIndex.drawer + 1 // trying to make header [pop out]
   },
