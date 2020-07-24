@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 
 import TableItem from './TableItem'
+import BarChart from './BarChart'
 
 function MainVisualiser(props) {
     const [sort_by, setSortby] = useState(()=> {return "All"})
     const [tableItems, setTableItems] = useState(()=> {return null})
 
     useEffect(() => {
+        console.log("BEFORE SETTING:" + JSON.stringify(tableItems))
         getTodoList()
-    }, [tableItems])
+    }, [!tableItems])
 
     // Updates the filter parameter when sidebar button is pressed and forces an update of the TodoList
     function updateFilterParams(text) {
@@ -27,22 +29,31 @@ function MainVisualiser(props) {
     function setTodoList(data) {
         const new_data = JSON.parse(data)["rows"]
 
+        console.log((new_data))
+        console.log((tableItems))
+        console.log((tableItems))
+    
+
         setTableItems(new_data.length === 0 ? null : new_data.map(item =>
             <TableItem key={item.id} item={item} />
         ))
+
+        console.log("AFTER SETTING:" + JSON.stringify(tableItems))
     }
 
     return(
+       
+
         // <div>
-        //     {tableItems.length === 0 ? 'No tasks to display' :
-        //     (<div key="TodoHeader" className ="todo-header">
-        //         <p><b>Time</b></p> 
-        //         <p><b>Task Name</b></p>
-        //         </div>,  
-        //         tableItems)
-        //     }
+        //     <BarChart/>
         // </div>
-        <div>
+
+
+
+        
+
+        // CORRECT TABLEITEM CODE
+        <div marginTop="100px">
             {tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
             [<div key="TableHeader" className ="table-header">
                 <p><b>Time</b></p> 
