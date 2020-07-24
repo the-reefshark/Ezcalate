@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react'
 import TableItem from './TableItem'
 
 function MainVisualiser(props) {
-    const [sort_by, setSortby] = useState("All")
-    const [tableItems, setTableItems] = useState(null)
+    const [sort_by, setSortby] = useState(()=> {return "All"})
+    const [tableItems, setTableItems] = useState(()=> {return null })
 
     useEffect(() => {
         getTodoList()
@@ -27,7 +27,7 @@ function MainVisualiser(props) {
     function setTodoList(data) {
         const new_data = JSON.parse(data)["rows"]
 
-        setTableItems(new_data === null ? null : new_data.map(item =>
+        setTableItems(new_data.length === 0 ? null : new_data.map(item =>
             <TableItem key={item.id} item={item} />
         ))
     }
