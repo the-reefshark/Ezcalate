@@ -96,17 +96,17 @@ export default function MenuAppBar(props) {
         
         {/* For the main Logo */}
         <Box >
-        <Link to="/"> 
-            <Box alignItems="center" display="flex" >
-                <Box display="inline"> <Avatar src={Logo}/> </Box>
-                <Box display="inline" paddingLeft="15px" > 
-                  <Typography variant="h6" className={classes.title}>
-                    Ezcalate
-                  </Typography>
-                </Box>
-            </Box>
-          </Link>
-          </Box>
+          <Link to="/"> 
+              <Box alignItems="center" display="flex" >
+                  <Box display="inline"> <Avatar src={Logo}/> </Box>
+                  <Box display="inline" paddingLeft="15px" > 
+                    <Typography variant="h6" className={classes.title}>
+                      Ezcalate
+                    </Typography>
+                  </Box>
+              </Box>
+            </Link>
+        </Box>
         {/* For the Navigational Links */}
             <Box 
               display="flex"

@@ -59,27 +59,6 @@ class TodoList extends React.Component {
             })
         }
         else {
-            // console.log(new_data["rows"].length)
-            // var available_tasks = [];
-            //     var completed_tasks = [];
-
-            // for (var i = 0; i < new_data["rows"].length; i++) {
-            //     console.log(new_data["rows"][i])
-                
-            
-
-            //     if (new_data["rows"][i]["completed"] === false) {
-            //         console.log(new_data["rows"][i])
-            //         available_tasks.push(new_data["rows"][i]);
-                    
-            //     }
-
-            //     else {
-            //         console.log(new_data["rows"][i])
-            //         completed_tasks.push(new_data["rows"][i])
-            //     }
-            // }
-
             this.setState({
                 todos: new_data["rows"],
                 add: ""
