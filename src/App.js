@@ -13,25 +13,30 @@ import MainVisualiser from "./Visualiser/MainVisualiser"
 function App() {
   const { isLoading, user, loginWithRedirect, logout } = useAuth0()
   
-  return (
-    <>
-      <Router>
-          <Header 
-            user={user} 
-            isLoading={isLoading}
-            loginWithRedirect={loginWithRedirect}
-            logout={() => logout({ returnTo: window.location.origin })}
-          />
+  if (isLoading) {
+    return <div> Is Loading</div>
+  }
 
-          <Switch>
-            <Route path="/" exact render={(props) => <HomePage {...props} loginWithRedirect={loginWithRedirect} /> } />
-            <Route path="/about" component={ AboutPage } />
-            <Route path="/todolist" render={(props) => <MainPage {...props} user={user} /> } />
-            <Route path="/visualiser" render={(props) => <MainVisualiser {...props} user={user} /> } />
-          </Switch>
-      </Router>
-    </>
-  )
+  else {
+    return (
+      <>
+        <Router>
+            <Header 
+              user={user}
+              loginWithRedirect={loginWithRedirect}
+              logout={() => logout({ returnTo: window.location.origin })}
+            />
+
+            <Switch>
+              <Route path="/" exact render={(props) => <HomePage {...props} loginWithRedirect={loginWithRedirect} /> } />
+              <Route path="/about" component={ AboutPage } />
+              <Route path="/todolist" render={(props) => <MainPage {...props} user={user} /> } />
+              <Route path="/visualiser" render={(props) => <MainVisualiser {...props} user={user} /> } />
+            </Switch>
+        </Router>
+      </>
+    )
+  }
 }
 
 export default App
