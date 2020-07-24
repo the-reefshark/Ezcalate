@@ -4,8 +4,8 @@ const pool = new Pool({
   user: 'my_user',
   host: 'localhost',
   database: 'my_database',
-  password: 'root',
-  // password: 'Sector37.',
+  // password: 'root',
+  password: 'Sector37.',
   port: 5432,
 });
 
@@ -24,30 +24,30 @@ const getTodolist = (username, sort_by) => {
   
   switch (sort_by) {
     case 'All':
-      text = 'SELECT * FROM ' + username + ' ORDER BY completed ASC, ' + param + ' ASC;'
+      text += 'SELECT * FROM ' + username + ' ORDER BY completed ASC, ' + param + ' ASC;'
       break
     case 'Completed':
-      text = 'SELECT * FROM ' + username + ' WHERE completed = true ORDER BY completed ASC, ' + param + ' ASC;'
+      text += 'SELECT * FROM ' + username + ' WHERE completed = true ORDER BY completed ASC, ' + param + ' ASC;'
       break
     case 'Today':
       today = new Date()
       startDate = "'" + today.getFullYear() + "-0" + (today.getMonth() + 1) + "-" + today.getDate() + "'"
-      text = 'SELECT * FROM ' + username + ' WHERE duedate = ' + startDate + ' ORDER BY completed ASC, ' + param + ' ASC;'
+      text += 'SELECT * FROM ' + username + ' WHERE duedate = ' + startDate + ' ORDER BY completed ASC, ' + param + ' ASC;'
       break
     case 'Month':
       today = new Date()
       startDate = "'" + today.getFullYear() + "-" + (today.getMonth() + 1) + "-01'"
       endDate = "'" + today.getFullYear() + "-" + (today.getMonth() + 2) + "-01'"
-      text = 'SELECT * FROM ' + username + ' WHERE duedate BETWEEN ' + startDate + ' AND ' + endDate + ' ORDER BY completed ASC, ' + param + ' ASC;'
+      text += 'SELECT * FROM ' + username + ' WHERE duedate BETWEEN ' + startDate + ' AND ' + endDate + ' ORDER BY completed ASC, ' + param + ' ASC;'
       break
     case 'Year':
       today = new Date()
       startDate = "'" + today.getFullYear() + "-01-01'"
       endDate = "'" + (today.getFullYear() + 1) + "-01-01'"
-      text = 'SELECT * FROM ' + username + ' WHERE duedate BETWEEN ' + startDate + ' AND ' + endDate + ' ORDER BY completed ASC, ' + param + ' ASC;'
+      text += 'SELECT * FROM ' + username + ' WHERE duedate BETWEEN ' + startDate + ' AND ' + endDate + ' ORDER BY completed ASC, ' + param + ' ASC;'
       break
     default:
-      text = "SELECT * FROM " + username + " tododata WHERE activity_type = '" + sort_by + "' ORDER BY completed ASC, " + param + " ASC;"
+      text += "SELECT * FROM " + username + " tododata WHERE activity_type = '" + sort_by + "' ORDER BY completed ASC, " + param + " ASC;"
       break
   }
 
@@ -56,7 +56,7 @@ const getTodolist = (username, sort_by) => {
       if (error) {
         reject(error)
       }
-      resolve(results);
+      resolve(results)
     })
   })
 }

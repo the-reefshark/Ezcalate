@@ -4,7 +4,7 @@ import TodoItem from "./TodoItem"
 import ToDoFormModal from "./TodoFormModal"
 import Description from "../vert_layout/RightPanel/Description.js"
 
-import Box from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box'
 import { wait } from "@testing-library/react"
 
 class TodoList extends React.Component {
@@ -43,14 +43,10 @@ class TodoList extends React.Component {
     }
 
     // Parses the data and updates the state after getTodoList executes
-    setTodoList = data => {       
+    setTodoList = data => {
         const new_data = JSON.parse(data)
-        
-        if(new_data["name"] === "error") { // Refresh page if data is null to initiate a re-render
-            window.location.reload()
-        }
 
-        if (new_data["rows"].length === 0 ) { // Updated this to use length because it is more accurate
+        if (new_data[1]["rows"].length === 0 ) { // Updated this to use length because it is more accurate
             this.setState({
                 todos: [],
                 completedTodos: [],
@@ -60,7 +56,7 @@ class TodoList extends React.Component {
         }
         else {
             this.setState({
-                todos: new_data["rows"],
+                todos: new_data[1]["rows"],
                 add: ""
             })
         }
