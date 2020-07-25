@@ -17,9 +17,8 @@ const state = {
 
 function BarChart() {
 
-
 return (
-    <div>
+    <div height="50px">
         <Bar
           data={state}
           options={{
@@ -31,7 +30,10 @@ return (
             legend:{
               display:true,
               position:'right'
-            }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+
           }}
         />
       </div>
