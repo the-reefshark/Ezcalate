@@ -1,5 +1,5 @@
-import React from "react";
-import {Bar} from 'react-chartjs-2';
+import React from "react"
+import {Doughnut} from 'react-chartjs-2';
 
 const state = {
   labels: ['Monday', 'Tuesday', 'Wednesday',
@@ -15,11 +15,12 @@ const state = {
   ]
 }
 
-function BarChart() {
+function DoughnutChart() {
 
-return (
-    <div >
-        <Bar
+    return (
+
+        <div >
+        <Doughnut
           data={state}
           options={{
             title:{
@@ -31,14 +32,15 @@ return (
               display:true,
               position:'right'
             },
-            responsive: true  ,
+            responsive: true,
             maintainAspectRatio: false
 
           }}
         />
       </div>
 
-)
+    )
+
 }
 
-export default BarChart
+export default DoughnutChart

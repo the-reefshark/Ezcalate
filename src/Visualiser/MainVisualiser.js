@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box'
 import TableItem from './TableItem'
 import BarChart from './BarChart'
+import DoughnutChart from './DoughnutChart'
 
 const useStyles = makeStyles((theme) => ({
     visualiser: {
@@ -13,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
         border: "solid red",
         flexDirection: "column",
     },
+    tableitem: {
+        textAlign: "center"
+
+    }
 }));
 
 
@@ -21,6 +26,7 @@ function MainVisualiser(props) {
     const [tableItems, setTableItems] = useState(()=> {return null})
 
     useEffect(() => {
+        console.log(tableItems)
         getTodoList()
     }, [!tableItems])
 
@@ -49,27 +55,34 @@ function MainVisualiser(props) {
 
 
     return(
+
         <Box className={classes.visualiser}>
             <Box border = "solid blue" order="1" flexGrow="1">
-                <div>
+                <div width={500} height={1000} >
                     <BarChart/>
                 </div>
             </Box>
 
-            <Box order="2" border="solid blue" >
-                <Box>
-                    {tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
-                    [<div key="TableHeader" className ="table-header">
-                        <p><b>Time</b></p> 
-                        <p><b>Task Name</b></p>
-                        </div>,  
-                        tableItems]
-                    ) :
-                    'Cannot connect to server!'}
+            <Box className={classes.tableitem}
+            order="2" border="solid blue"  flexGrow="3" display="flex" flexDirection="row">
+                <Box order="0" flexGrow="2">
+                    <div>
+                        {tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
+                        [<div key="TableHeader" className ="todo-header">
+                            <p><b>Time</b></p> 
+                            <p><b>Task Name</b></p>
+                            <p><b>Grouping</b></p>
+                            </div>,  
+                            tableItems]
+                        ) :
+                        'Cannot connect to server!'}
+                    </div>
                 </Box>
 
-                <Box>
-                    {/* Doughnut Graph */}
+                <Box order="1" flexGrow="1" border="solid green" display="flex">
+                    <div>
+                        <DoughnutChart />
+                    </div>
                 </Box>
             </Box>
 
