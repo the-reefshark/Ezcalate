@@ -52,7 +52,7 @@ function MainVisualiser(props) {
         <Box className={classes.visualiser}>
             <Box border = "solid blue" order="1" flexGrow="1">
                 <div>
-                    <BarChart/>
+                    <BarChart user={ props.user } />
                 </div>
             </Box>
 

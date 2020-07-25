@@ -22,8 +22,8 @@ app.get('/sorted/:username/:sort_by', (req, res) => {
   })
 })
 
-app.get('/filter', (req, res) => {
-  todolist_model.getFilteredTodolist(req.body)
+app.get('/filter/:username/:filter/:value', (req, res) => {
+  todolist_model.getFilteredTodolist(req.params.username, req.params.filter, req.params.value)
   .then(response => {
     res.status(200).send(response);
   })
