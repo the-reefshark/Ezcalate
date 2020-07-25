@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import { makeStyles } from '@material-ui/core/styles';
 
+
+import Box from '@material-ui/core/Box'
 import TableItem from './TableItem'
+import BarChart from './BarChart'
+
+const useStyles = makeStyles((theme) => ({
+    visualiser: {
+        width: "95%",
+        display: "flex",
+        border: "solid red",
+        flexDirection: "column",
+    },
+}));
+
 
 function MainVisualiser(props) {
     const [sort_by, setSortby] = useState(()=> {return "All"})
@@ -8,7 +22,7 @@ function MainVisualiser(props) {
 
     useEffect(() => {
         getTodoList()
-    }, [tableItems])
+    }, [!tableItems])
 
     // Updates the filter parameter when sidebar button is pressed and forces an update of the TodoList
     function updateFilterParams(text) {
@@ -17,7 +31,6 @@ function MainVisualiser(props) {
 
     // Sends fetch request to obtain a list of TodoList items ordered by given param
     function getTodoList() {
-        console.log("RUNNING")
         return fetch(`http://localhost:3001/sorted/${props.user["nickname"]}/${sort_by}`)
             .then(response => { return response.text() })
             .then(data => setTodoList(data))
@@ -32,26 +45,35 @@ function MainVisualiser(props) {
         ))
     }
 
+    const classes = useStyles();
+
+
     return(
-        // <div>
-        //     {tableItems.length === 0 ? 'No tasks to display' :
-        //     (<div key="TodoHeader" className ="todo-header">
-        //         <p><b>Time</b></p> 
-        //         <p><b>Task Name</b></p>
-        //         </div>,  
-        //         tableItems)
-        //     }
-        // </div>
-        <div>
-            {tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
-            [<div key="TableHeader" className ="table-header">
-                <p><b>Time</b></p> 
-                <p><b>Task Name</b></p>
-                </div>,  
-                tableItems]
-            ) :
-            'Cannot connect to server!'}
-        </div>
+        <Box className={classes.visualiser}>
+            <Box border = "solid blue" order="1" flexGrow="1">
+                <div>
+                    <BarChart/>
+                </div>
+            </Box>
+
+            <Box order="2" border="solid blue" >
+                <Box>
+                    {tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
+                    [<div key="TableHeader" className ="table-header">
+                        <p><b>Time</b></p> 
+                        <p><b>Task Name</b></p>
+                        </div>,  
+                        tableItems]
+                    ) :
+                    'Cannot connect to server!'}
+                </Box>
+
+                <Box>
+                    {/* Doughnut Graph */}
+                </Box>
+            </Box>
+
+        </Box>
     )
 }
 
