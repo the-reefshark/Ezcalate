@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
         width: '100vw',
         height: '100vh',
         paddingTop: "100px",
-        display:"flex",
-        flexFlow:"column",
-        justifyContent:"space-between"
+        // display:"flex",
+        // flexFlow:"column",
+        // justifyContent:"space-between"
     },
 
 // footer:{
