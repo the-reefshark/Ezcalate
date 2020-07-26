@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { useAuth0 } from './context/auth0-context'
 
 //Relevant Components to be rendered
+import LoadingScreen from './LoadingScreen'
 import MainPage from "./vert_layout/MainPage"
 import Header from "./Header"
 import HomePage from "./HomePage/HomePage.js"
@@ -15,7 +16,9 @@ function App() {
   const { isLoading, user, loginWithRedirect, logout } = useAuth0()
   
   if (isLoading) {
-    return <div> Is Loading</div>
+    return (
+        <LoadingScreen />
+      )
   }
 
   else {

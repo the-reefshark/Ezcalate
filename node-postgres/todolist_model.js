@@ -62,13 +62,8 @@ const getTodolist = (username, sort_by) => {
 }
 
 // Get TodoList from database filtered by given param and sorted by given parameter (sort_by)
-// NOT BEING USED
-const getFilteredTodolist = body => {
-  const { filter, value, sort_by } = body
-
-  const text = filter !== "" || value !== "" ?
-    'SELECT * FROM tododata WHERE ' + filter + ' = ' + value + ' ORDER BY completed ASC, ' + sort_by + ' ASC' :
-    'SELECT * FROM tododata ORDER BY completed ASC, ' + sort_by + ' ASC'
+const getFilteredTodolist = (username, filter, value) => {
+  const text = 'SELECT SUM(timer) FROM ' + username + ' WHERE ' + filter + " = '" + value + "'"
 
   return new Promise(function(resolve, reject) {
     pool.query(text, (error, results) => {

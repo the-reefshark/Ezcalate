@@ -7,23 +7,21 @@ import Box from '@material-ui/core/Box'
 function TableItem(props) {
     return (
         <Box
-        border="solid black"
             display="flex"
             flexDirection="row"
-            justifyContent="space-around"
+            justifyContent="flex-start"
             alignItems="center"
-        >
-            <Box         border="solid red"
- order="1" >
+            borderBottom="solid grey 1px">
+
+            <Box width="15%">
                 <p className="date">{(props.item.timer)}</p>
             </Box>
 
-            <Box order="2"         border="solid blue"
->
+            <Box width="50%">
                 <p className="taskName"> {props.item.task_name} </p>
             </Box>
 
-            <Box order="3"         border="solid yellow"
+            <Box width="38%"
 >
                 <p className="group"> {props.item.activity_type} </p>
             </Box>
