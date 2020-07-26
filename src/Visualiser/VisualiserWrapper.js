@@ -9,20 +9,22 @@ import ToDoImage from "../Background Images/coffeeshop1.jpg"
 
 const useStyles = makeStyles((theme) => ({
     visualiser_page: {
-        // backgroundImage: `url(${ToDoImage})`,
+        backgroundImage: `url(${ToDoImage})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
         backgroundSize: "cover",
         width: '100vw',
         height: '100vh', 
-        paddingTop: "100px"
+        paddingTop: "95px",
     },
 
     main: {
         display:"flex",
-        justifyContent:"space-around",
-        height: "100%"
+        height: "100%",
+        justifyContent: "space-around",
+        backgroundColor: "white",
+        opacity: "0.95"
 
     }
 }));
@@ -33,7 +35,7 @@ function VisualiserWrapper(props){
     
     return (
         <div className={classes.visualiser_page}>
-            <Box className={classes.main}>
+            <Box className={classes.main} >
                 <MainVisualiser {...props}/>
             </Box>
         </div>

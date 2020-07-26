@@ -5,14 +5,44 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box'
 import TableItem from './TableItem'
 import BarChart from './BarChart'
+import DoughnutChart from './DoughnutChart'
 
 const useStyles = makeStyles((theme) => ({
     visualiser: {
         width: "95%",
         display: "flex",
-        border: "solid red",
         flexDirection: "column",
     },
+    bar: {
+        order:"0",
+        flexGrow:"1" 
+    },
+    lower: {
+        order:"1",
+        flexGrow:"2", //Change this to change the size of the bar chart
+        display:"flex",
+        flexDirection:"row",
+        paddingTop: "20px",
+        
+    },
+    tableitem: {
+        order:"1",
+        flexGrow:"7",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+        paddingTop: "15px",
+        maxHeight: "90%",
+        border: "solid grey 1px"
+
+    },
+    header: {
+        justifyContent: "flex-start",
+        display: "flex", 
+        paddingRight: "20%",
+        flexDirection: "row",
+        paddingBottom:"10px"
+        
+    }
 }));
 
 
@@ -21,6 +51,7 @@ function MainVisualiser(props) {
     const [tableItems, setTableItems] = useState(()=> {return null})
 
     useEffect(() => {
+        console.log(tableItems)
         getTodoList()
     }, [!tableItems])
 
@@ -49,27 +80,29 @@ function MainVisualiser(props) {
 
 
     return(
+
         <Box className={classes.visualiser}>
-            <Box border = "solid blue" order="1" flexGrow="1">
-                <div>
-                    <BarChart user={ props.user } />
-                </div>
+            <Box className={classes.bar} >
+                <BarChart user={ props.user } />
             </Box>
 
-            <Box order="2" border="solid blue" >
-                <Box>
-                    {tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
-                    [<div key="TableHeader" className ="table-header">
-                        <p><b>Time</b></p> 
-                        <p><b>Task Name</b></p>
-                        </div>,  
-                        tableItems]
-                    ) :
-                    'Cannot connect to server!'}
+            <Box className={classes.lower}>
+                <Box className={classes.tableitem} borderRadius={16}>
+                    <div>
+                        {tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
+                        [<Box key="TableHeader" className = {classes.header}>
+                            <Box width="30%"><b>Time</b></Box> 
+                            <Box width="50%"><b>Task Name</b></Box>
+                            <Box width="20%"><b>Grouping</b></Box>
+                            </Box>,  
+                            tableItems]
+                        ) :
+                        'Cannot connect to server!'}
+                    </div>
                 </Box>
 
-                <Box>
-                    {/* Doughnut Graph */}
+                <Box order="1" flexGrow="1" padding="30px" justifyContent="center" >
+                        <DoughnutChart user={ props.user } />
                 </Box>
             </Box>
 

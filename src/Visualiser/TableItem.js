@@ -1,4 +1,6 @@
 import React from 'react'
+import { makeStyles } from '@material-ui/core/styles';
+
 
 import Box from '@material-ui/core/Box'
 
@@ -9,16 +11,18 @@ function TableItem(props) {
             flexDirection="row"
             justifyContent="flex-start"
             alignItems="center"
-        >
-            <Box order="1" flexGrow="1"  whiteSpace="nowrap" justifyContent="center">
-                <p className="date">{"  " + (props.item.timer)}</p>
+            borderBottom="solid grey 1px">
+
+            <Box width="15%">
+                <p className="date">{(props.item.timer)}</p>
             </Box>
 
-            <Box order="2">
+            <Box width="50%">
                 <p className="taskName"> {props.item.task_name} </p>
             </Box>
 
-            <Box order="3">
+            <Box width="38%"
+>
                 <p className="group"> {props.item.activity_type} </p>
             </Box>
         </Box>

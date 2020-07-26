@@ -48,7 +48,6 @@ class BarChart extends React.Component {
 
   render() {
     return (
-      <div height="50px">
           <Bar
             data={this.state.state}
             options={{
@@ -65,7 +64,6 @@ class BarChart extends React.Component {
               maintainAspectRatio: false
             }}
           />
-      </div>
     )
   }
 }
