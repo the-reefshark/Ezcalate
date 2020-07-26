@@ -13,15 +13,15 @@ function TableItem(props) {
             alignItems="center"
             borderBottom="solid grey 1px">
 
-            <Box width="15%">
-                <p className="date">{(props.item.timer)}</p>
+            <Box width="24%">
+                <p className="date">{Math.round((props.item.timer / 60) * 100) / 100}</p>
             </Box>
 
-            <Box width="50%">
+            <Box width="40%">
                 <p className="taskName"> {props.item.task_name} </p>
             </Box>
 
-            <Box width="38%"
+            <Box width="36%"
 >
                 <p className="group"> {props.item.activity_type} </p>
             </Box>

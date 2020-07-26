@@ -91,10 +91,10 @@ function MainVisualiser(props) {
                     <div>
                         {tableItems ? (tableItems.length === 0 ? 'No tasks to display' :
                         [<Box key="TableHeader" className = {classes.header}>
-                            <Box width="30%"><b>Time</b></Box> 
-                            <Box width="50%"><b>Task Name</b></Box>
-                            <Box width="20%"><b>Grouping</b></Box>
-                            </Box>,  
+                            <Box width="30%"><b>Time (mins)</b></Box> 
+                            <Box width="50%"><b>Task</b></Box>
+                            <Box width="20%"><b>Group</b></Box>
+                        </Box>,  
                             tableItems]
                         ) :
                         'Cannot connect to server!'}

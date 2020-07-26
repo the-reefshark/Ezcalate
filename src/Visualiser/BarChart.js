@@ -28,7 +28,8 @@ class BarChart extends React.Component {
       fetch(`http://localhost:3001/filter/${this.props.user["nickname"]}/duedate/${date}`)
                       .then(response => { return response.text() })
                       .then(data => JSON.parse(data))
-                      .then(data => barData[6 - i] = data["rows"][0]["sum"] === null ? 0 : parseInt(data["rows"][0]["sum"]) / 60)
+                      .then(data => barData[6 - i] = data[1]["rows"][0]["sum"] === null ? 0 :
+                        Math.round((parseInt(data[1]["rows"][0]["sum"]) / 60) * 100) / 100)
     }
     this.setState({
       state: {

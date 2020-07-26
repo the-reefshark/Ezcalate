@@ -4,8 +4,8 @@ const pool = new Pool({
   user: 'my_user',
   host: 'localhost',
   database: 'my_database',
-  password: 'root',
-  // password: 'Sector37.',
+  // password: 'root',
+  password: 'Sector37.',
   port: 5432,
 });
 
@@ -63,7 +63,8 @@ const getTodolist = (username, sort_by) => {
 
 // Get TodoList from database filtered by given param and sorted by given parameter (sort_by)
 const getFilteredTodolist = (username, filter, value) => {
-  const text = 'SELECT SUM(timer) FROM ' + username + ' WHERE ' + filter + " = '" + value + "'"
+  let text = "CREATE TABLE IF NOT EXISTS " + username + " (id SERIAL PRIMARY KEY, task_name VARCHAR, details VARCHAR, completed BOOLEAN, activity_type VARCHAR, duedate VARCHAR, dateCompleted VARCHAR, timer INTEGER);"
+  text += 'SELECT SUM(timer) FROM ' + username + ' WHERE ' + filter + " = '" + value + "';"
 
   return new Promise(function(resolve, reject) {
     pool.query(text, (error, results) => {

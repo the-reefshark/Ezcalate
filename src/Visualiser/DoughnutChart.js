@@ -21,7 +21,7 @@ class DoughnutChart extends React.Component {
       fetch(`http://localhost:3001/filter/${this.props.user["nickname"]}/activity_type/${label[i]}`)
                       .then(response => { return response.text() })
                       .then(data => JSON.parse(data))
-                      .then(data => barData[i] = data["rows"][0]["sum"])
+                      .then(data => barData[i] = Math.round((parseInt(data[1]["rows"][0]["sum"]) / 60) * 100) / 100)
     }
     
     
